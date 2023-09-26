@@ -160,13 +160,15 @@ router.post('/addflatowner', getUser, [
         if (flatowner) {
             return res.status(400).json({ success, error: "This flat number is already registered" })
         }
+        const salt = await bcrypt.genSalt(10);
+        const secPass = await bcrypt.hash(req.body.password, salt);
         const temp = {
             flat_owner_name: req.body.flat_owner_name,
             flat_no: req.body.flat_no,
             society_name: admin.society_name,
             amount_due: req.body.amount_due,
             last_paid: req.body.last_paid,
-            password: req.body.password,
+            password: secPass
         }
         flatowner = await FlatOwner.create(temp)
         success = true;
