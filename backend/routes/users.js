@@ -10,9 +10,6 @@ const FlatOwner = require('../models/flatowner.js');
 
 // creating admin user 
 router.post('/postadmin', [
-    body('admin_name', 'Enter a valid name').isLength({ min: 5 }),
-    body('mob_no', 'Enter a valid phone number').isMobilePhone(),
-    body('society_name', 'Enter a valid society/apartment name').isLength({ min: 3 }),
     body('password', 'Enter a strong password').isStrongPassword({
         minLength: 8,
         minLowercase: 1,
@@ -61,15 +58,8 @@ router.post('/postadmin', [
 })
 
 //admin login
-router.post("/adminlogin", [
-    body('society_name', 'Society Name is required'),
-    body('password', 'Password is required')
-], async (req, res) => {
+router.post("/adminlogin", async (req, res) => {
     let success = false;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ success, error: errors.array()[0].msg });
-    }
     try {
         let admin = await Admin.findOne({ society_name: req.body.society_name });
         if (!admin) {
@@ -95,9 +85,27 @@ router.post("/adminlogin", [
 })
 
 // editing admin details
-router.put("/editadmin", getUser, [
-    body('admin_name', 'Enter a valid name').isLength({ min: 5 }),
-    body('mob_no', 'Enter a valid phone number').isMobilePhone(),
+router.patch("/editadmin", getUser, async (req, res) => {
+    let success = false;
+    try {
+        let admin = await Admin.findOne({ mob_no: req.body.mob_no })
+        if (admin) {
+            return res.status(400).json({ success, error: "Sorry an admin using this phone number already exists" })
+        }
+        const adminid = req.user.id
+        const newadmin = req.body
+        admin = await Admin.findByIdAndUpdate(adminid, { $set: newadmin }, { new: true })
+        success = true;
+        res.json({ success, admin });
+    }
+    catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error"); // sending to user 
+    }
+})
+
+// change admin password
+router.put("/editadminpassword", getUser, [
     body('password', 'Enter a strong password').isStrongPassword({
         minLength: 8,
         minLowercase: 1,
@@ -119,19 +127,13 @@ router.put("/editadmin", getUser, [
         return res.status(400).json({ success, error: errors.array()[0].msg });
     }
     try {
-        let admin = await Admin.findOne({ mob_no: req.body.mob_no })
-        if (admin) {
-            return res.status(400).json({ success, error: "Sorry an admin using this phone number already exists" })
-        }
+        const adminid = req.user.id
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(req.body.password, salt);
-        const adminid = req.user.id
         const newadmin = {
-            admin_name: req.body.admin_name,
-            mob_no: req.body.mob_no,
             password: secPass
         }
-        admin = await Admin.findByIdAndUpdate(adminid, { $set: newadmin }, { new: true })
+        const admin = await Admin.findByIdAndUpdate(adminid, { $set: newadmin }, { new: true })
         success = true;
         res.json({ success, admin });
     }
@@ -142,18 +144,8 @@ router.put("/editadmin", getUser, [
 })
 
 // adding flat owner details by admin
-router.post('/addflatowner', getUser, [
-    body('flat_owner_name', 'Enter a valid name (Mr/Mrs/Dr. FirstName Lastname)').isLength({ min: 5 }),
-    body('flat_no', 'Enter a valid flat number'),
-    body('amount_due', 'Enter a valid amount (only numeric value)').isNumeric(),
-    body('last_paid', 'Last date when maintenance amount paid is required'),
-    body('password', 'Password length should be atleast 3 characters').isLength({ min: 3 })
-], async (req, res) => {
+router.post('/addflatowner', getUser, async (req, res) => {
     let success = false;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ success, error: errors.array()[0].msg });
-    }
     try {
         const admin = await Admin.findById(req.user.id)
         let flatowner = await FlatOwner.findOne({ $and: [{ society_name: admin.society_name }, { flat_no: req.body.flat_no }] })
@@ -173,6 +165,32 @@ router.post('/addflatowner', getUser, [
         flatowner = await FlatOwner.create(temp)
         success = true;
         res.json({ success, flatowner })
+    }
+    catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error"); // sending to user 
+    }
+})
+
+// get admin details
+router.get("/getadmin", getUser, async (req, res) => {
+    try {
+        let adminid = req.user.id;
+        const admin = await Admin.findById(adminid).select("-password");
+        res.json( admin )
+    }
+    catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error"); // sending to user 
+    }
+})
+
+// get all flat owners living in same society by admin
+router.get("/getflatowners", getUser, async(req,res) =>{
+    try {
+        const admin = await Admin.findById(req.user.id)
+        const flatowners = await FlatOwner.find({society_name : admin.society_name}).select("-password")
+        res.json( flatowners )
     }
     catch (error) {
         console.error(error.message)
