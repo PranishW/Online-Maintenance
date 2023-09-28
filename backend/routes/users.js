@@ -46,6 +46,7 @@ router.post('/postadmin', [
             admin_name: req.body.admin_name,
             mob_no: req.body.mob_no,
             society_name: req.body.society_name,
+            per_month_maintenance : req.body.per_month_maintenance,
             password: secPass
         })
         success = true;

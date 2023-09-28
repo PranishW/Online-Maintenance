@@ -14,6 +14,7 @@ const AdminSchema = new mongoose.Schema({
         required:true,
         unique:true
     },
+    per_month_maintenance:Number,
     password:{
         type:String,
         required:true
