@@ -57,6 +57,7 @@
 .dropdown-item.logout{
     color: red;
     font-style: italic;
+    border-bottom: none;
 }
 .dropdown-item:hover{
     font-weight: 600;
@@ -71,6 +72,6 @@
     text-align: center;
 }
 ul{
-    min-width: 3vw ;
+    min-width: 3vw !important;
     width: 8vw;
 }

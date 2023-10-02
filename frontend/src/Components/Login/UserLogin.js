@@ -1,13 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import userContext from "./userContext";
+import React, { useContext, useRef, useState } from "react";
 import { PopupContext } from "../../App";
 const UserLogin = () => {
     const [user, setUser] = useState({ society_name: "", flat_no: "", password: "" })
     const [error, setError] = useState({})
-    const context = useContext(userContext);
     const alert = useContext(PopupContext);
     const { showPopup } = alert
-    const { userData, getflatowner } = context
     const ref = useRef(null)
     const handleClick = async (e) => {
         e.preventDefault()
@@ -24,7 +21,7 @@ const UserLogin = () => {
             // Save the auth token and redirect
             localStorage.setItem('token', json.authtoken)
             ref.current.click()
-            getflatowner()
+            showPopup("Logged in successfully", "success")
         }
         else if (json.error) {
             showPopup(json.error, "danger")
@@ -46,11 +43,6 @@ const UserLogin = () => {
         }
         setError(errors)
     }
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            showPopup(`${userData.flat_owner_name} logged in successfully`, "success")
-        }
-    },[localStorage.getItem('token')])
     return (
         <div className="loginbody">
             <i className="user-ico fa-regular fa-circle-user fa-4x"></i>

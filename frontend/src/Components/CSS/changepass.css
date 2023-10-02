@@ -1,0 +1,54 @@
+.cp-head{
+    background-color: #662549;
+    height: 6vh;
+    color: orange;
+}
+.cp-body{
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.cp-main{
+    height: 40%;
+}
+.cp-foot{
+    height: 6vh;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+.cp-save{
+    margin: 0;
+    padding: 0%;
+    background-color: #662549;
+    color: white;
+    width: 8vw;
+    height: 4vh;
+}
+.cp-save:hover{
+    color: rgb(219, 214, 214);
+    background-color: #662549;
+    transition: 0.5s ease-in-out;
+}
+.pass{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.cpinput{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+.pass-res{
+    font-size: smaller;
+    width: 100%;
+    font-weight: 300;
+    line-height: 0;
+    margin-left: 7.5%;
+    color: red;
+}
+.cpass{
+    margin-top: 3%;
+}
