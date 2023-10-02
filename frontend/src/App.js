@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Home from './Components/Home'
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
+import AdminState from "./Components/Login/AdminState";
+import { createContext, useState } from "react";
+import Popup from "./Popup";
+export const PopupContext = createContext();
 function App() {
+  const [popup, setPopup] = useState(null);
+  const showPopup = (message, type) => {
+    setPopup({
+      message: message,
+      type: type
+    })
+    setTimeout(() => {
+      setPopup(null);
+    }, 3000);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AdminState>
+        <BrowserRouter>
+          <PopupContext.Provider value={{showPopup}} >
+            <Navbar />
+            <Popup popup={popup} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+            <Footer />
+          </PopupContext.Provider>
+        </BrowserRouter>
+      </AdminState>
+    </>
   );
 }
 
