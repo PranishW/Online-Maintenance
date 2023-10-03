@@ -105,13 +105,15 @@ router.get("/getuser", getUser, async (req, res) => {
 
 // get maintenance fees ,search by flat owner name, flat no, society name
 router.post("/getmaintenance", async (req, res) => {
+    let success = false;
     try {
         let flatowner = await FlatOwner.findOne({ $and: [{ society_name: req.body.society_name }, { flat_owner_name: req.body.flat_owner_name }, { flat_no: req.body.flat_no }] }).select("-password");
         if(!flatowner)
         {
             return res.status(400).json({ error : "No results found!!"})
         }
-        res.json(flatowner)
+        success = true
+        res.json({success,flatowner})
     }
     catch (error) {
         console.error(error.message)

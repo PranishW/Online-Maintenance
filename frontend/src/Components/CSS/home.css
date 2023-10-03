@@ -1,3 +1,80 @@
 .home-page{
-    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.main{
+    width: 40%;
+    height: 80vh;
+    margin-top: 4%;
+}
+.head{
+    color: orange;
+    text-align: center;
+}
+.head2{
+    text-align: center;
+}
+.res-body{
+    height: 30%;
+    padding: 2% 5%;
+}
+.main-body{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-top: 3px solid #662549;
+    border-bottom: 3px solid #662549;
+    padding: 1% 5%;
+}
+.home-label{
+    font-weight: 600;
+}
+.homeinput{
+    width: 80%;
+    border: 0;
+    border-bottom: 1px solid #662549;
+}
+.homeinput:hover{
+    border-bottom: 2px solid #662549;
+    font-weight: 500;
+}
+.homeinput:focus-visible{
+    outline: none;
+    border-bottom: 2px solid #662549;
+    font-weight: 500;
+}
+.nohome-btn{
+    display: flex;
+    justify-content: space-evenly;
+}
+.ghead{
+    color: green;
+}
+.rhead{
+    color: red;
+}
+.nohomebtn{
+    font-weight: 600;
+    background-color: #662549;
+    color: white;
+    border-radius: 5%;
+}
+.nohomebtn:hover{
+    color: rgb(219, 214, 214);
+    transition: color 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.paybtn{
+    margin-left: 10%;
+    height: 3.5vh;
+    font-size: 2vh;
+    font-weight: 500;
+    border-radius: 5%;
+    background-color: #662549;
+    color: orange;
+}
+.paybtn:hover{
+    color: darkorange;
+    transform: translateY(-3%);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }

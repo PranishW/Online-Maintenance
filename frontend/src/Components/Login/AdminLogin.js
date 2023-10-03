@@ -46,7 +46,7 @@ const AdminLogin = () => {
             <i className="user-ico fa-solid fa-lock fa-4x"></i>
             <div className="loginform">
                 <div className="login-field">
-                    <label className="society-label">SOCIETY NAME</label>
+                    <label className="society-label">SOCIETY/APARTMENT NAME</label>
                     <div>
                         <input type="text" className="loginput" name="society_name" placeholder="Society Name" onChange={onChange} />
                     </div>
