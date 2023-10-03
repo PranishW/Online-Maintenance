@@ -6,7 +6,9 @@ const UserLogin = () => {
     const alert = useContext(PopupContext);
     const { showPopup } = alert
     const ref = useRef(null)
+    const [loading,setloading] = useState(false)
     const handleClick = async (e) => {
+        setloading(true)
         e.preventDefault()
         validate()
         const response = await fetch('http://localhost:4444/api/user/login', {
@@ -26,6 +28,7 @@ const UserLogin = () => {
         else if (json.error) {
             showPopup(json.error, "danger")
         }
+        setloading(false)
     }
     const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -68,7 +71,7 @@ const UserLogin = () => {
                     </div>
                     <div className="error-field">{error.password}</div>
                 </div>
-                <button className="login-btn" onClick={handleClick}>Login</button>
+                <button className="login-btn" onClick={handleClick}>{!loading?"Login":<div className="loader"></div>}</button>
             </div>
             <button type="button" className="btn-close d-none" data-bs-dismiss="modal" aria-label="Close" ref={ref}></button>
         </div>

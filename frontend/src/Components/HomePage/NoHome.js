@@ -4,7 +4,9 @@ const NoHome = () => {
     const [res, setres] = useState({})
     const [error, setError] = useState({})
     const [user, setUser] = useState({ society_name: "", flat_owner_name: "", flat_no: "" })
+    const [loading, setloading] = useState(false)
     const handleClick = async (e) => {
+        setloading(true)
         validate()
         const response = await fetch('http://localhost:4444/api/user/getmaintenance', {
             method: 'POST',
@@ -19,13 +21,14 @@ const NoHome = () => {
             const flatowner = json.flatowner
             setres({
                 success: "Result Found", society_name: flatowner.society_name, flat_owner_name: flatowner.flat_owner_name,
-                flat_no: flatowner.flat_no, amount_due: flatowner.amount_due, last_paid: flatowner.last_paid
+                flat_no: flatowner.flat_no, amount_due: flatowner.amount_due, last_paid: new Date(flatowner.last_paid)
             })
         }
         if (json.error) {
             setbal(true)
             setres({ error: "No results Found" })
         }
+        setloading(false)
     }
     const handleReset = (e) => {
         setbal(false)
@@ -75,7 +78,9 @@ const NoHome = () => {
                     </div>
                 </div>
                 <div className="nohome-btn">
-                    <button onClick={handleClick} className="nohomebtn">Check <i className="fa-solid fa-magnifying-glass"></i></button>
+                    <button onClick={handleClick} className="nohomebtn">
+                        {!loading ? <span>Check <i className="fa-solid fa-magnifying-glass"></i></span> : <div className="loader"></div>}
+                    </button>
                     <button onClick={handleReset} className="nohomebtn">Refresh <i className="fa-solid fa-arrows-rotate"></i></button>
                 </div>
             </div>
@@ -85,7 +90,7 @@ const NoHome = () => {
                     <div>Society/Apartment Name : {res.society_name}</div>
                     <div>Flat Owner/Tenant Name : {res.flat_owner_name}</div>
                     <div>Flat No : {res.flat_no}</div>
-                    <div>Last Paid Date (YYYY-MM-DD) : {res.last_paid.substring(0, res.last_paid.indexOf('T'))}</div>
+                    <div>Last Paid Date (DD-MM-YYYY) : {res.last_paid.getDate() - 1 + "-" + (res.last_paid.getMonth() + 1) + "-" + res.last_paid.getFullYear()}</div>
                     <div>Maintenance Amount Due : {res.amount_due !== 0 ? <span>
                         <b>Rs. {res.amount_due}</b><button className="paybtn">Pay Now</button>
                     </span> : <span>No Due Amount to Pay</span>}

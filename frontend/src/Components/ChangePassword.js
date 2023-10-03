@@ -10,7 +10,9 @@ const ChangePassword = () => {
     const [showpass, setshowpass] = useState("password")
     const [showcpass, setshowcpass] = useState("password")
     const ref = useRef(null)
+    const [loading,setloading] = useState(false)
     const handleClick = async (e) => {
+        setloading(true)
         validate()
         if (data.password !== data.cpassword) {
             showPopup("Password in both fields does not match", "warning")
@@ -57,6 +59,7 @@ const ChangePassword = () => {
                 }
             }
         }
+        setloading(false)
     }
     const onChange = (e) => {
         setdata({ ...data, [e.target.name]: e.target.value })
@@ -115,7 +118,7 @@ const ChangePassword = () => {
                             </div>
                         </div>
                         <div className="modal-footer cp-foot">
-                            <button type="button" className="btn cp-save" onClick={handleClick} >Save changes</button>
+                            <button type="button" className="btn cp-save" onClick={handleClick} >{!loading?"Save changes":<div className="loader"></div>}</button>
                         </div>
                     </div>
                 </div>

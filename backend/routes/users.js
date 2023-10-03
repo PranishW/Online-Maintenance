@@ -191,6 +191,15 @@ router.get("/getflatowners", getUser, async(req,res) =>{
     try {
         const admin = await Admin.findById(req.user.id)
         const flatowners = await FlatOwner.find({society_name : admin.society_name}).select("-password")
+        flatowners.sort((a,b)=>{
+            if(a.flat_no<b.flat_no) {
+                return -1;
+            }
+            if(a.flat_no>b.flat_no) {
+                return 1;
+            }
+            return 0;
+        })
         res.json( flatowners )
     }
     catch (error) {
