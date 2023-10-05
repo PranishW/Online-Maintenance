@@ -5,6 +5,7 @@ import LoginPortal from "./LoginPortal";
 import userContext from "./Login/userContext";
 import { PopupContext } from "../App";
 import ChangePassword from "./ChangePassword";
+import AddFlat from "./AddFlat";
 const Navbar = () => {
     const alert = useContext(PopupContext)
     const { showPopup } = alert
@@ -42,12 +43,13 @@ const Navbar = () => {
                 {link === 0 && <Link type="button" className="nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i className="navic fa-solid fa-right-to-bracket" />Login</Link>}
                 {link === 1 && <div className="dropdown">
                     <a className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {userData.admin_name?userData.admin_name.substring(0, userData.admin_name.indexOf(" ")):" "}
+                        {userData.admin_name ? userData.admin_name.substring(0, userData.admin_name.indexOf(" ")) : " "}
                     </a>
                     <ul className="dropdown-menu">
                         <li><Link className="dropdown-item profile">Profile</Link></li>
                         <li><Link type="button" className="dropdown-item cp" data-bs-toggle="modal" data-bs-target="#exampleModal1" >Change Password</Link></li>
-                        <li><Link className="dropdown-item" >View Transactions</Link></li>
+                        <li><Link type="button" className="dropdown-item au" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Add Flat</Link></li>
+                        <li><Link className="dropdown-item" >View All Transactions</Link></li>
                         <li><button onClick={handleLogout} className="dropdown-item logout" >Logout</button></li>
                     </ul>
                 </div>}
@@ -66,6 +68,7 @@ const Navbar = () => {
             </div>
             <LoginPortal />
             <ChangePassword />
+            <AddFlat />
         </div>
     )
 }

@@ -10,6 +10,9 @@
 .admin-main{
     width: 40%;
     margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .head{
     color: orange;
@@ -96,3 +99,56 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+.flatitem {
+    color: white;
+    background-color: #662549;
+    border-radius: 5px;
+    margin-top: 2%;
+    padding: 1%;
+    width: 60%;
+}
+.flatitemhead{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: large;
+}
+.flatitemflatno {
+    color: orange;
+    font-size: x-large;
+}
+.flatitemfoot{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.flatitembtn{
+    background-color: white;
+    border-radius: 10px;
+    color:#662549;
+}
+.flatitembtn:hover{
+    background-color: rgb(219, 214, 214);
+    transition: all 1s ease-in-out;
+}
+.usermain{
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-top: 3px solid #662549;
+    border-bottom: 3px solid #662549;
+    padding: 1% 5%;
+    align-items: center;
+}
+.userpaybtn {
+    background-color: #662549;
+    color: orange;
+    width: 33%;
+}
+.userpaybtn:hover{
+    color: darkorange;
+    transform: translateY(-3%);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}

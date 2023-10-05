@@ -64,7 +64,7 @@ const NoHome = () => {
                     </div>
                 </div>
                 <div className="homeform">
-                    <label className="home-label">FLAT OWNER/TENANT NAME :- (Dr/Mr/Mrs. Firstname Lastname)</label>
+                    <label className="home-label">FLAT OWNER NAME :- (Dr/Mr/Mrs. Firstname Lastname)</label>
                     <div>
                         <input type="text" className="homeinput" placeholder="Enter name" name="flat_owner_name" onChange={onChange} value={user.flat_owner_name}></input>
                         <div className="error-field">{error.flat_owner_name}</div>
@@ -88,7 +88,7 @@ const NoHome = () => {
                 <h4 className="ghead">{res.success} <i className="fa-solid fa-check"></i></h4>
                 <div className="res-info">
                     <div>Society/Apartment Name : {res.society_name}</div>
-                    <div>Flat Owner/Tenant Name : {res.flat_owner_name}</div>
+                    <div>Flat Owner Name : {res.flat_owner_name}</div>
                     <div>Flat No : {res.flat_no}</div>
                     <div>Last Paid Date (DD-MM-YYYY) : {res.last_paid.getDate() - 1 + "-" + (res.last_paid.getMonth() + 1) + "-" + res.last_paid.getFullYear()}</div>
                     <div>Maintenance Amount Due : {res.amount_due !== 0 ? <span>

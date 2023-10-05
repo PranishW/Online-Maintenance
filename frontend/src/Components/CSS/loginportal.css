@@ -1,43 +1,51 @@
-.logtop{
+.logtop {
     display: flex;
 }
-.logbtn{
+
+.logbtn {
     width: 50%;
     height: 6vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
-.modal-body{
+
+.modal-body {
     padding: 0%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.active{
+
+.active {
     background-color: #662549;
 }
-.log-link{
+
+.log-link {
     text-decoration: none;
     font-size: 3vh;
     color: black;
     font-weight: bold;
 }
-.log-link.active{
+
+.log-link.active {
     color: white;
     transform: translateY(-15%);
     transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.user-ico{
+
+.user-ico {
     color: #662549;
     width: 100%;
     text-align: center;
     height: 10%;
 }
-.loginbody{
+
+.loginbody {
     height: 60vh;
 }
-.loginform{
+
+.loginform {
     margin: 5%;
     height: 80%;
     display: flex;
@@ -45,22 +53,25 @@
     justify-content: space-around;
     font-weight: 600;
 }
-.loginput{
+
+.loginput {
     width: 100%;
     border: 0;
     border-bottom: 1px solid #662549;
 }
-.loginput:hover{
+
+.loginput:hover {
     border-bottom: 2px solid #662549;
     font-weight: 500;
 }
-.loginput:focus-visible{
+
+.loginput:focus-visible {
     outline: none;
     border-bottom: 2px solid #662549;
     font-weight: 500;
 }
-.login-btn
-{
+
+.login-btn {
     border-radius: 3px;
     background-color: #662549;
     color: white;
@@ -68,15 +79,31 @@
     font-size: 2.5vh;
     font-weight: 600;
 }
-.login-btn:hover{
+
+.login-btn:hover {
     transform: translateY(-3%);
     color: rgb(219, 214, 214);
     transition: 0.5s ease-in-out;
 }
-.error-field{
-    font-size:smaller;
+
+.error-field {
+    font-size: smaller;
     height: 16px;
     font-weight: 400;
     color: red;
     margin-left: 2%;
+}
+
+.addflatform {
+    margin: 5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-weight: 600;
+}
+.addpass {
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
