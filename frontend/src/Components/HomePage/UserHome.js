@@ -13,7 +13,7 @@ const UserHome = () => {
                 <div>Maintenance Amount Due : {userData.amount_due !== 0 ? <span>
                     <b>Rs. {userData.amount_due}</b></span> : <span>No Due Amount to Pay</span>}
                 </div>
-                <div>Last Paid Date (DD-MM-YYYY) : {last_paid.getDate() - 1 + "-" + (last_paid.getMonth() + 1) + "-" + last_paid.getFullYear()}</div>
+                <div>Last Paid Date (DD-MM-YYYY) : {last_paid.getDate() + "-" + (last_paid.getMonth() + 1) + "-" + last_paid.getFullYear()}</div>
                 {userData.amount_due !== 0 ?<button className="userpaybtn">Pay Now</button>:null}
             </div>
         </div>

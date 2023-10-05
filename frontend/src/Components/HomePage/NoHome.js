@@ -90,7 +90,7 @@ const NoHome = () => {
                     <div>Society/Apartment Name : {res.society_name}</div>
                     <div>Flat Owner Name : {res.flat_owner_name}</div>
                     <div>Flat No : {res.flat_no}</div>
-                    <div>Last Paid Date (DD-MM-YYYY) : {res.last_paid.getDate() - 1 + "-" + (res.last_paid.getMonth() + 1) + "-" + res.last_paid.getFullYear()}</div>
+                    <div>Last Paid Date (DD-MM-YYYY) : {res.last_paid.getDate() + "-" + (res.last_paid.getMonth() + 1) + "-" + res.last_paid.getFullYear()}</div>
                     <div>Maintenance Amount Due : {res.amount_due !== 0 ? <span>
                         <b>Rs. {res.amount_due}</b><button className="paybtn">Pay Now</button>
                     </span> : <span>No Due Amount to Pay</span>}
