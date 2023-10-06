@@ -41,6 +41,15 @@ router.put("/editdata", getUser, async (req, res) => {
     try {
         const userid = req.user.id
         const newuser = req.body
+        if(newuser.flat_owner_name==="") {
+            return res.status(400).json({ success, error: "Flat owner name cannot be blank" })
+        }
+        if (newuser.mob_no) {
+            const mob = newuser.mob_no.toString()
+            if (mob.length < 10) {
+                return res.status(400).json({ success, error: "Phone No should contain 10 digits" })
+            }
+        }
         let flatowner = await FlatOwner.findByIdAndUpdate(userid, { $set: newuser }, { new: true })
         success = true;
         res.json({ success, flatowner });
@@ -108,12 +117,11 @@ router.post("/getmaintenance", async (req, res) => {
     let success = false;
     try {
         let flatowner = await FlatOwner.findOne({ $and: [{ society_name: req.body.society_name }, { flat_owner_name: req.body.flat_owner_name }, { flat_no: req.body.flat_no }] }).select("-password");
-        if(!flatowner)
-        {
-            return res.status(400).json({ error : "No results found!!"})
+        if (!flatowner) {
+            return res.status(400).json({ error: "No results found!!" })
         }
         success = true
-        res.json({success,flatowner})
+        res.json({ success, flatowner })
     }
     catch (error) {
         console.error(error.message)

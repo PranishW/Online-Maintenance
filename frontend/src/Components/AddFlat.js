@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { PopupContext } from "../App";
+import userContext from "./Login/userContext";
 const AddFlat = () => {
     const [flat, setFlat] = useState({ flat_owner_name: "", flat_no: "", amount_due: "", last_paid: "", password: "" })
     const [error, setError] = useState({})
@@ -8,6 +9,8 @@ const AddFlat = () => {
     const ref = useRef(null)
     const [loading, setloading] = useState(false)
     const [showpass, setshowpass] = useState("password")
+    const context = useContext(userContext)
+    const {fetchusers} = context
     const handleClick = async (e) => {
         setloading(true)
         e.preventDefault()
@@ -28,6 +31,7 @@ const AddFlat = () => {
             ref.current.click()
             setFlat({ flat_owner_name: "", flat_no: "", amount_due: "", last_paid: "", password: "" })
             showPopup("Record added successfully", "success")
+            fetchusers()
         }
         else if (json.error) {
             showPopup(json.error, "danger")

@@ -2,25 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import FlatItem from "./FlatItem";
 import userContext from "../Login/userContext";
 const AdminHome = () => {
-    const flatsInitial = []
-    const [flats, setflats] = useState(flatsInitial)
+    
     const context = useContext(userContext)
-    const {userData} = context
-    const fetchusers = async () => {
-        const response = await fetch("http://localhost:4444/api/admin/getflatowners", {
-            method: 'GET',
-            headers: {
-                'auth-token': localStorage.getItem('token')
-            },
-        });
-        const json = await response.json()
-        setflats(json)
-    }
+    const {userData,flats,fetchusers} = context
+    
     useEffect(() => {
         if (localStorage.getItem('admin')) {
             fetchusers()
         }
-    },)
+    },[])
     return (
         <div className="admin-main">
             <h1 className="head">Home Page</h1>

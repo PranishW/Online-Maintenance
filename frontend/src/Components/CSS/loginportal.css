@@ -107,3 +107,35 @@
     display: flex;
     align-items: center;
 }
+.profiledata {
+    margin: 3%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-weight: 600;
+}
+.profdis {
+    margin-left: 3%;
+    width: 50%;
+    border: 0;
+    border-bottom: 1px solid #662549;
+}
+
+.profdis:hover {
+    border-bottom: 2px solid #662549;
+    font-weight: 500;
+}
+
+.profdis:focus-visible {
+    outline: none;
+    border-bottom: 2px solid #662549;
+    font-weight: 500;
+}
+.divred {
+    color: red;
+}
+.profbtns {
+    display: flex;
+    justify-content: space-around;
+}
