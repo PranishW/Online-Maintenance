@@ -29,6 +29,7 @@ const UserProfile = () => {
             setbtn(false)
             editname(false)
             editno(false)
+            setformdata({})
             getflatowner()
         }
         else if (json.error) {
@@ -73,7 +74,7 @@ const UserProfile = () => {
                                 <div className="login-field">
                                     <label className="society-label">PHONE NO. <i type="button" className="fa-solid fa-pen-to-square" onClick={handleno}></i></label>
                                     <input type="tel" className="profdis" name="mob_no"
-                                        value={no ? formdata.mob_no : userData.mob_no} onChange={onChange} />
+                                        value={no ? formdata.mob_no : userData.mob_no?userData.mob_no:""} onChange={onChange} />
                                     <i className="fa-solid fa-phone"></i>
                                 </div>
                                 <div className="login-field">
@@ -85,7 +86,7 @@ const UserProfile = () => {
                                     <input type="text" className="profdis" disabled value={userData.flat_no} />
                                 </div>
                                 {btn ? <div className="profbtns"><button className="login-btn" onClick={handleClick}>{!loading ? "Update Profile" : <div className="loader"></div>}</button>
-                                    <button className="login-btn" onClick={resetvalues}>Reset Values</button></div> : null}
+                                    <button className="login-btn" onClick={resetvalues}>Reset Data</button></div> : null}
                             </div>
                         </div>
                     </div>

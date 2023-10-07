@@ -24,6 +24,7 @@ const UserLogin = () => {
             localStorage.setItem('token', json.authtoken)
             ref.current.click()
             showPopup("Logged in successfully", "success")
+            setUser({ society_name: "", flat_no: "", password: "" })
         }
         else if (json.error) {
             showPopup(json.error, "danger")
@@ -53,21 +54,21 @@ const UserLogin = () => {
                 <div className="login-field">
                     <label className="society-label">SOCIETY/APARTMENT NAME</label>
                     <div>
-                        <input type="text" className="loginput" name="society_name" placeholder="Society Name" onChange={onChange} />
+                        <input type="text" className="loginput" name="society_name" placeholder="Society Name" onChange={onChange} value={user.society_name}/>
                     </div>
                     <div className="error-field">{error.society_name}</div>
                 </div>
                 <div className="login-field">
                     <label className="society-label">FLAT NO</label>
                     <div>
-                        <input type="text" className="loginput" name="flat_no" placeholder="Flat No" onChange={onChange} />
+                        <input type="text" className="loginput" name="flat_no" placeholder="Flat No" onChange={onChange} value={user.flat_no}/>
                     </div>
                     <div className="error-field">{error.flat_no}</div>
                 </div>
                 <div className="login-field">
                     <label className="society-label">PASSWORD</label>
                     <div>
-                        <input type="password" className="loginput" name="password" placeholder="Password" onChange={onChange} />
+                        <input type="password" className="loginput" name="password" placeholder="Password" onChange={onChange} value={user.password}/>
                     </div>
                     <div className="error-field">{error.password}</div>
                 </div>
