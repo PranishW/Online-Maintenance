@@ -7,6 +7,7 @@ import { PopupContext } from "../App";
 import ChangePassword from "./ChangePassword";
 import AddFlat from "./AddFlat";
 import UserProfile from "./userProfile";
+import AdminProfile from "./AdminProfile";
 const Navbar = () => {
     const alert = useContext(PopupContext)
     const { showPopup } = alert
@@ -47,7 +48,7 @@ const Navbar = () => {
                         {userData.admin_name ? userData.admin_name.substring(0, userData.admin_name.indexOf(" ")) : " "}
                     </a>
                     <ul className="dropdown-menu">
-                        <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal3" >Profile</Link></li>
+                        <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal4" >Profile</Link></li>
                         <li><Link type="button" className="dropdown-item cp" data-bs-toggle="modal" data-bs-target="#exampleModal1" >Change Password</Link></li>
                         <li><Link type="button" className="dropdown-item au" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Add Flat</Link></li>
                         <li><Link className="dropdown-item" >View All Transactions</Link></li>
@@ -71,6 +72,7 @@ const Navbar = () => {
             <ChangePassword />
             <AddFlat />
             <UserProfile />
+            <AdminProfile />
         </div>
     )
 }
