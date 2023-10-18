@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv')
+dotenv.config();
 const getUser = (req,res,next) =>{
     const token = req.header('auth-token')
     if(!token)

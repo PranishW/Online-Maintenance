@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const getUser = require('../middleware/getUser.js');
 const FlatOwner = require('../models/flatowner.js');
-
+dotenv.config()
 // login flat owner
 router.post("/login", async (req, res) => {
     let success = false;

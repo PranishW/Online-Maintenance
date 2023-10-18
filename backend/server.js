@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/api/admin', require('./routes/users'));
 app.use('/api/user',require('./routes/flatowners'));
-
+app.use('/api/payment',require('./routes/payment'));
 app.listen(port, () => {
     console.log(`Registration Form backend listening on ${BASE_URL}`)
   })
