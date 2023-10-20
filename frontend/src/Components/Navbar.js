@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './CSS/navbar.css'
 import LoginPortal from "./LoginPortal";
 import userContext from "./Login/userContext";
@@ -14,6 +14,7 @@ const Navbar = () => {
     const context = useContext(userContext);
     const [link, setlink] = useState(0);
     const { userData, getflatowner, getadmin } = context
+    const navigate = useNavigate()
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('admin');
@@ -41,7 +42,7 @@ const Navbar = () => {
                 <h1 className="nav-head">Monthly Maintenance Portal</h1>
             </div>
             <div className="navbuttons">
-                <Link className="nav-btn"><i className="navic fa-solid fa-house" />Home</Link>
+                <Link className="nav-btn" onClick={()=>navigate(-1)}><i className="navic fa-solid fa-house" />Home</Link>
                 {link === 0 && <Link type="button" className="nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i className="navic fa-solid fa-right-to-bracket" />Login</Link>}
                 {link === 1 && <div className="dropdown">
                     <a className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">

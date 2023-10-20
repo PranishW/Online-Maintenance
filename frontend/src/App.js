@@ -9,6 +9,7 @@ import Footer from "./Components/Footer";
 import AdminState from "./Components/Login/AdminState";
 import { createContext, useState } from "react";
 import Popup from "./Popup";
+import Payment from "./Components/Payment";
 export const PopupContext = createContext();
 function App() {
   const [popup, setPopup] = useState(null);
@@ -30,6 +31,7 @@ function App() {
             <Popup popup={popup} />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/payment" element={<Payment />} />
             </Routes>
             <Footer />
           </PopupContext.Provider>
