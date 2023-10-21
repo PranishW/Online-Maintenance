@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { PopupContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 const UserLogin = () => {
     const [user, setUser] = useState({ society_name: "", flat_no: "", password: "" })
     const [error, setError] = useState({})
@@ -7,6 +8,7 @@ const UserLogin = () => {
     const { showPopup } = alert
     const ref = useRef(null)
     const [loading,setloading] = useState(false)
+    const navigate = useNavigate();
     const handleClick = async (e) => {
         setloading(true)
         e.preventDefault()
@@ -23,6 +25,7 @@ const UserLogin = () => {
             // Save the auth token and redirect
             localStorage.setItem('token', json.authtoken)
             ref.current.click()
+            navigate("/")
             showPopup("Logged in successfully", "success")
             setUser({ society_name: "", flat_no: "", password: "" })
         }

@@ -5,7 +5,7 @@ const { body, validationResult } = require('express-validator');
 const getUser = require('../middleware/getUser.js');
 const sha512 = require('js-sha512');
 dotenv.config();
-router.post("/initiate_payment", getUser, [
+router.post("/initiate_payment", [
     body('email', 'enter a valid email').isEmail(),
     body('phone', 'Phone no must be valid').isMobilePhone()
 ], async (req, res) => {
@@ -46,9 +46,18 @@ router.post("/initiate_payment", getUser, [
                 'surl': data.surl,
             }
         }
+        const user = () => {
+            return {
+                'flat_owner_name': data.name,
+                'society_name': data.society_name,
+                'flat_no': data.flat_no,
+                'last_paid' : data.last_paid
+            }
+        }
         success = true;
         const savedForm = form();
-        res.status(200).json({success,savedForm});
+        const savedUser = user();
+        res.status(200).json({ success, savedForm, savedUser });
     }
     catch (error) {
         console.error(error.message)

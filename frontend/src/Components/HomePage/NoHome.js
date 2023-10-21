@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom"
+import {Link} from "react-router-dom"
 const NoHome = () => {
     const [bal, setbal] = useState(false)
     const [res, setres] = useState({})
     const [error, setError] = useState({})
     const [user, setUser] = useState({ society_name: "", flat_owner_name: "", flat_no: "" })
     const [loading, setloading] = useState(false)
-    const navigate = useNavigate()
     const handleClick = async (e) => {
         setloading(true)
         validate()
@@ -53,9 +52,6 @@ const NoHome = () => {
         }
         setError(errors)
     }
-    const pay = ()=> {
-        navigate("/payment")
-    }
     return (
         <div className="main">
             <h1 className="head">Home Page</h1>
@@ -97,7 +93,7 @@ const NoHome = () => {
                     <div>Flat No : {res.flat_no}</div>
                     <div>Last Paid Date (DD-MM-YYYY) : {res.last_paid.getDate() + "-" + (res.last_paid.getMonth() + 1) + "-" + res.last_paid.getFullYear()}</div>
                     <div>Maintenance Amount Due : {res.amount_due !== 0 ? <span>
-                        <b>Rs. {res.amount_due}</b><button className="paybtn" onClick={pay}>Pay Now</button>
+                        <b>Rs. {res.amount_due}</b><Link type="button" className="paybtn" to="/payment" state={res} >Pay Now</Link>
                     </span> : <span>No Due Amount to Pay</span>}
                     </div>
                 </div>

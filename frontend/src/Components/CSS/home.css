@@ -80,6 +80,9 @@
     border-radius: 5%;
     background-color: #662549;
     color: orange;
+    text-decoration: none;
+    width: 5vw;
+    text-align: center;
 }
 .paybtn:hover{
     color: darkorange;

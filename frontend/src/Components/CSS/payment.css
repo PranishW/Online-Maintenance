@@ -1,0 +1,65 @@
+.payinput {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #662549;
+}
+.payinput:hover{
+    border-bottom: 2px solid #662549;
+    font-weight: 500;
+}
+.payinput:focus-visible{
+    outline: none;
+    border-bottom: 2px solid #662549;
+    font-weight: 500;
+}
+.payfield {
+    display: flex;
+    justify-content: space-evenly;
+}
+.field1 {
+    width: 40%;
+}
+.pay-form {
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 5%;
+    border-top: 3px solid #662549;
+    border-bottom: 3px solid #662549;
+}
+.userpay {
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: 500;
+}
+.payamt {
+    font-size: larger;
+    font-weight: 600;
+    text-align: center;
+}
+.payspan {
+    font-size: xx-large;
+    font-weight: 600;
+    color: green;
+}
+.paysubmit {
+    display: flex;
+    justify-content: center;
+}
+.payformbtn {
+    text-decoration: none;
+    font-size: larger;
+    font-weight: 600;
+    background-color: #662549;
+    color: white;
+    display: block;
+    text-align: center;
+    width: 5vw;
+    border-radius: 20px;
+}
+.payformbtn:hover {
+    color: rgb(219, 214, 214);
+    transform: translateY(-3%);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
