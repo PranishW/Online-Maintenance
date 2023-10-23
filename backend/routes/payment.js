@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const { body, validationResult } = require('express-validator');
 const getUser = require('../middleware/getUser.js');
 const sha512 = require('js-sha512');
+const request = require('request');
 dotenv.config();
 router.post("/initiate_payment", [
     body('email', 'enter a valid email').isEmail(),
@@ -26,7 +27,7 @@ router.post("/initiate_payment", [
             return {
                 'key': process.env.EASEBUZZ_KEY,
                 'txnid': data.txnid,
-                'amount': data.amount.toFixed(2),
+                'amount': data.amount,
                 'email': data.email,
                 'phone': data.phone,
                 'firstname': data.name,
@@ -51,13 +52,15 @@ router.post("/initiate_payment", [
                 'flat_owner_name': data.name,
                 'society_name': data.society_name,
                 'flat_no': data.flat_no,
-                'last_paid' : data.last_paid
+                'last_paid': data.last_paid
             }
         }
         success = true;
         const savedForm = form();
         const savedUser = user();
-        res.status(200).json({ success, savedForm, savedUser });
+        util_call(savedForm).then(function (response) {
+            res.status(200).json({ success, savedForm, savedUser, response });
+        });
     }
     catch (error) {
         console.error(error.message)
@@ -65,4 +68,41 @@ router.post("/initiate_payment", [
     }
 })
 
+const util_call = (data) => {
+    let options = {
+        'method': "POST",
+        'url': "https://testpay.easebuzz.in/payment/initiateLink",
+        'headers': {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': 'csrftoken=TIkUHVU97GnvNVDbFxONUfLkxYwv09yr'
+        },
+        form: data,
+    };
+    return new Promise(function (resolve, reject) {
+        request(options, function (error, response) {
+            if (response) {
+                let data = JSON.parse(response.body)
+                return resolve(data);
+            } else
+                return reject(error);
+        })
+    })
+}
+
+router.post('/response', function (req, res) {
+    function checkReverseHash(response) {
+        var hashstring = process.env.EASEBUZZ_SALT + "|" + response.status + "|" + response.udf10 + "|" + response.udf9 + "|" + response.udf8 + "|" + response.udf7 +
+            "|" + response.udf6 + "|" + response.udf5 + "|" + response.udf4 + "|" + response.udf3 + "|" + response.udf2 + "|" + response.udf1 + "|" +
+            response.email + "|" + response.firstname + "|" + response.productinfo + "|" + response.amount + "|" + response.txnid + "|" + response.key
+        hash_key = sha512.sha512(hashstring);
+        if (hash_key == req.body.hash)
+            return true;
+        else
+            return false;
+    }
+    if (checkReverseHash(req.body)) {
+        res.status(200).json(req.body);
+    }
+    res.send('false, check the hash value ');
+});
 module.exports = router;

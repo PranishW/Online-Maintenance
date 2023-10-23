@@ -35,7 +35,7 @@ const Navbar = () => {
         else {
             setlink(0)
         }
-    },[localStorage.getItem('token'),localStorage.getItem('admin')])
+    }, [localStorage.getItem('token'), localStorage.getItem('admin')])
     return (
         <div className="navbar">
             <div className="logo">
@@ -43,7 +43,7 @@ const Navbar = () => {
                 <h1 className="nav-head">Monthly Maintenance Portal</h1>
             </div>
             <div className="navbuttons">
-                <Link className="nav-btn" onClick={()=>navigate(-1)}><i className="navic fa-solid fa-house" />Home</Link>
+                <Link className="nav-btn" to="/"><i className="navic fa-solid fa-house" />Home</Link>
                 {link === 0 && <Link type="button" className="nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i className="navic fa-solid fa-right-to-bracket" />Login</Link>}
                 {link === 1 && <div className="dropdown">
                     <a className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,7 +63,7 @@ const Navbar = () => {
                     </a>
 
                     <ul className="dropdown-menu">
-                    <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal3" >Profile</Link></li>
+                        <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal3" >Profile</Link></li>
                         <li><Link type="button" className="dropdown-item cp" data-bs-toggle="modal" data-bs-target="#exampleModal1" >Change Password</Link></li>
                         <li><Link className="dropdown-item" >View Transactions</Link></li>
                         <li><button onClick={handleLogout} className="dropdown-item logout" >Logout</button></li>

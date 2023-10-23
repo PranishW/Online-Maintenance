@@ -10,6 +10,7 @@ import AdminState from "./Components/Login/AdminState";
 import { createContext, useState } from "react";
 import Popup from "./Popup";
 import Payment from "./Components/Payment";
+import Response from "./Components/Response";
 export const PopupContext = createContext();
 function App() {
   const [popup, setPopup] = useState(null);
@@ -32,6 +33,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/response" element={<Response />} />
             </Routes>
             <Footer />
           </PopupContext.Provider>
