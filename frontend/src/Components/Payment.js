@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import "./CSS/payment.css";
 import { PopupContext } from "../App";
@@ -13,9 +13,9 @@ const Payment = () => {
     const { showPopup } = alert
     const [user, setUser] = useState({
         txnid: txnid, amount: `${state.amount_due}`, email: "", phone: "", name: state.flat_owner_name,
-        productinfo: "Society Maintenance", society_name: state.society_name, flat_no: state.flat_no, last_paid: state.last_paid,
-        furl: "http://localhost:4444/api/payment/response", surl: "http://localhost:4444/api/payment/response", udf1: "", udf2: "", udf3: "", udf4: "", udf5: "",
-        udf6: "", udf7: "", udf8: "", udf9: "", udf10: "",
+        productinfo: `${state.flat_no} ${state.society_name}`, udf6: "", udf7: "", udf8: "", udf9: "", udf10: "",
+        furl: "http://localhost:4444/api/payment/response", surl: "http://localhost:4444/api/payment/response",
+        udf1: "", udf2: "", udf3: "", udf4: "", udf5: "",
     })
     const [loading, setloading] = useState(false)
     const handleClick = async () => {
@@ -30,15 +30,15 @@ const Payment = () => {
         });
         const json = await response.json()
         if (json.success) {
-            if(json.response.status) {
+            if (json.response.status) {
                 window.location.assign(`https://testpay.easebuzz.in/pay/${json.response.data}`);
             }
             else {
-                showPopup("Payment Initiation Failed ,Please Retry","danger")
+                showPopup("Payment Initiation Failed ,Please Retry", "danger")
             }
         }
         else if (json.error) {
-            showPopup(json.error,"danger")
+            showPopup(json.error, "danger")
         }
         setloading(false)
     }
@@ -93,7 +93,7 @@ const Payment = () => {
                         Maintenance Amount : <span className="payspan">Rs.{state.amount_due}</span>
                     </div>
                     <div className="paysubmit">
-                    <button className="payformbtn" onClick={handleClick}>{!loading ? <span>Pay</span> : <div className="loader"></div>}</button>
+                        <button className="payformbtn" onClick={handleClick}>{!loading ? <span>Pay</span> : <div className="loader"></div>}</button>
                     </div>
                 </div>
             </div>}

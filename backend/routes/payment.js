@@ -5,7 +5,10 @@ const { body, validationResult } = require('express-validator');
 const getUser = require('../middleware/getUser.js');
 const sha512 = require('js-sha512');
 const request = require('request');
+const moment = require('moment-timezone');
+const Transaction = require('../models/transactions.js');
 dotenv.config();
+let payinfo = {}
 router.post("/initiate_payment", [
     body('email', 'enter a valid email').isEmail(),
     body('phone', 'Phone no must be valid').isMobilePhone()
@@ -47,19 +50,10 @@ router.post("/initiate_payment", [
                 'surl': data.surl,
             }
         }
-        const user = () => {
-            return {
-                'flat_owner_name': data.name,
-                'society_name': data.society_name,
-                'flat_no': data.flat_no,
-                'last_paid': data.last_paid
-            }
-        }
         success = true;
         const savedForm = form();
-        const savedUser = user();
         util_call(savedForm).then(function (response) {
-            res.status(200).json({ success, savedForm, savedUser, response });
+            res.status(200).json({ success, savedForm, response });
         });
     }
     catch (error) {
@@ -101,8 +95,41 @@ router.post('/response', function (req, res) {
             return false;
     }
     if (checkReverseHash(req.body)) {
-        res.status(200).json(req.body);
+        payinfo = req.body
+        const date = new Date();
+        const ISTDate = moment(date).tz('Asia/Kolkata').format();
+        payinfo.addedon = ISTDate
+        res.redirect("http://localhost:3000/response")
     }
     res.send('false, check the hash value ');
 });
+
+router.get('/payinfo', async (req, res) => {
+    let success = false;
+    try {
+        if (payinfo.status === "success") {
+            let { firstname, mode, amount, easepayid, addedon, txnid, productinfo } = payinfo
+            let flat_no = productinfo.split(" ")[0]
+            let society_name = productinfo.slice(productinfo.indexOf(' ') + 1)
+            let transaction = await Transaction.create({
+                flat_owner_name: firstname,
+                transaction_mode: mode,
+                easepayid: easepayid,
+                transaction_date: addedon,
+                transaction_id: txnid,
+                society_name: society_name,
+                flat_no: flat_no,
+                amount : amount
+            })
+            success = true;
+            console.log(payinfo);
+            payinfo = {}
+            res.json({ success, transaction })
+        }
+    }
+    catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error");
+    }
+})
 module.exports = router;
