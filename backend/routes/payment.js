@@ -7,6 +7,7 @@ const sha512 = require('js-sha512');
 const request = require('request');
 const moment = require('moment-timezone');
 const Transaction = require('../models/transactions.js');
+const FlatOwner = require('../models/flatowner.js');
 dotenv.config();
 let payinfo = {}
 router.post("/initiate_payment", [
@@ -119,10 +120,13 @@ router.get('/payinfo', async (req, res) => {
                 transaction_id: txnid,
                 society_name: society_name,
                 flat_no: flat_no,
-                amount : amount
+                amount: amount
             })
+            let flatowner = await FlatOwner.findOne({ $and: [{ society_name: society_name }, { flat_no: flat_no }] })
+            flatowner.amount_due= flatowner.amount_due - amount;
+            flatowner.last_paid = addedon
+            flatowner = await FlatOwner.findByIdAndUpdate(flatowner._id, { $set: flatowner }, { new: true })
             success = true;
-            console.log(payinfo);
             payinfo = {}
             res.json({ success, transaction })
         }
