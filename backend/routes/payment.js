@@ -8,6 +8,7 @@ const request = require('request');
 const moment = require('moment-timezone');
 const Transaction = require('../models/transactions.js');
 const FlatOwner = require('../models/flatowner.js');
+const Admin = require('../models/admin.js');
 dotenv.config();
 let payinfo = {}
 router.post("/initiate_payment", [
@@ -134,6 +135,68 @@ router.get('/payinfo', async (req, res) => {
     catch (error) {
         console.error(error.message)
         res.status(500).json("Internal Server Error");
+    }
+})
+
+// get all transactions admin
+router.get("/alltransactions", getUser, async (req, res) => {
+    try {
+        let admin = await Admin.findById(req.user.id)
+        let transactions = await Transaction.find({ society_name: admin.society_name })
+        transactions.sort((a, b) => {
+            if (a.transaction_date < b.transaction_date) {
+                return 1;
+            }
+            if (a.transaction_date > b.transaction_date) {
+                return -1;
+            }
+            return 0;
+        })
+        res.json(transactions)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error"); // sending to user 
+    }
+})
+// get single user transactions admin
+router.post("/usertransactions", getUser, async (req, res) => {
+    try {
+        let admin = await Admin.findById(req.user.id)
+        let transactions = await Transaction.find({ $and: [{ society_name: admin.society_name }, { flat_no: req.body.flat_no }] })
+        transactions.sort((a, b) => {
+            if (a.transaction_date < b.transaction_date) {
+                return 1;
+            }
+            if (a.transaction_date > b.transaction_date) {
+                return -1;
+            }
+            return 0;
+        })
+        res.json(transactions)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error"); // sending to user 
+    }
+})
+
+// get single user transactions flat owner
+router.get("/transactions", getUser, async (req, res) => {
+    try {
+        let flatowner = await FlatOwner.findById(req.user.id)
+        let transactions = await Transaction.find({ $and: [{ society_name: flatowner.society_name }, { flat_no: flatowner.flat_no }] })
+        transactions.sort((a, b) => {
+            if (a.transaction_date < b.transaction_date) {
+                return 1;
+            }
+            if (a.transaction_date > b.transaction_date) {
+                return -1;
+            }
+            return 0;
+        })
+        res.json(transactions)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error"); // sending to user 
     }
 })
 module.exports = router;
