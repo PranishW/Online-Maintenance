@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import TransactionContext from "../Transactions/TransactionContext";
 const FlatItem = (props) => {
     const { flat } = props
     const last_paid = new Date(flat.last_paid)
+    const transcontext = useContext(TransactionContext)
+    const {getusertransactions} = transcontext
+    const handleClick = () =>{
+        getusertransactions(flat.flat_no)
+    }
     return (
         <div className="flatitem">
             <div className="flatitemhead">
@@ -11,8 +17,8 @@ const FlatItem = (props) => {
             {flat.mob_no?<div>Phone No : {flat.mob_no}</div>:<div></div>}
             <div>Maintenance Amount Due : {flat.amount_due !== 0 ? <span><b>Rs. {flat.amount_due}</b></span> : <span>No Due Amount</span>}</div>
             <div className="flatitemfoot">
-                <div>Last Paid Date : {last_paid.getDate() - 1 + "-" + (last_paid.getMonth() + 1) + "-" + last_paid.getFullYear()}</div>
-                <button className="flatitembtn">View Transactions</button>
+                <div>Last Paid Date : {last_paid.getDate() + "-" + (last_paid.getMonth() + 1) + "-" + last_paid.getFullYear()}</div>
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal5" className="flatitembtn" onClick={handleClick}>View Transactions</button>
             </div>
         </div>
     )

@@ -8,6 +8,8 @@ import ChangePassword from "./ChangePassword";
 import AddFlat from "./AddFlat";
 import UserProfile from "./userProfile";
 import AdminProfile from "./AdminProfile";
+import TransactionModal from "./Transactions/TransactionModal";
+import TransactionContext from "./Transactions/TransactionContext";
 const Navbar = () => {
     const alert = useContext(PopupContext)
     const { showPopup } = alert
@@ -15,6 +17,14 @@ const Navbar = () => {
     const [link, setlink] = useState(0);
     const { userData, getflatowner, getadmin } = context
     const navigate = useNavigate()
+    const transcontext = useContext(TransactionContext)
+    const { getalltransactions, gettransactions } = transcontext
+    const viewalltransactions = (e) =>{
+        getalltransactions()
+    }
+    const viewtransactions = (e) =>{
+        gettransactions()
+    }
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('admin');
@@ -44,16 +54,20 @@ const Navbar = () => {
             </div>
             <div className="navbuttons">
                 <Link className="nav-btn" to="/"><i className="navic fa-solid fa-house" />Home</Link>
-                {link === 0 && <Link type="button" className="nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i className="navic fa-solid fa-right-to-bracket" />Login</Link>}
+                {link === 0 && <Link type="button" className="nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i className="navic fa-solid fa-right-to-bracket" />Login
+                </Link>}
                 {link === 1 && <div className="dropdown">
                     <a className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {userData.admin_name ? userData.admin_name.substring(0, userData.admin_name.indexOf(" ")) : " "}
                     </a>
                     <ul className="dropdown-menu">
-                        <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal4" >Profile</Link></li>
+                        <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal4">Profile</Link></li>
                         <li><Link type="button" className="dropdown-item cp" data-bs-toggle="modal" data-bs-target="#exampleModal1" >Change Password</Link></li>
                         <li><Link type="button" className="dropdown-item au" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Add Flat</Link></li>
-                        <li><Link className="dropdown-item" >View All Transactions</Link></li>
+                        <li><Link type="button" className="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal5" onClick={viewalltransactions}>
+                            View All Transactions
+                        </Link></li>
                         <li><button onClick={handleLogout} className="dropdown-item logout" >Logout</button></li>
                     </ul>
                 </div>}
@@ -65,7 +79,9 @@ const Navbar = () => {
                     <ul className="dropdown-menu">
                         <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal3" >Profile</Link></li>
                         <li><Link type="button" className="dropdown-item cp" data-bs-toggle="modal" data-bs-target="#exampleModal1" >Change Password</Link></li>
-                        <li><Link className="dropdown-item" >View Transactions</Link></li>
+                        <li><Link type="button" className="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal5" onClick={viewtransactions}>
+                            View Transactions
+                        </Link></li>
                         <li><button onClick={handleLogout} className="dropdown-item logout" >Logout</button></li>
                     </ul>
                 </div>}
@@ -75,6 +91,7 @@ const Navbar = () => {
             <AddFlat />
             <UserProfile />
             <AdminProfile />
+            <TransactionModal />
         </div>
     )
 }
