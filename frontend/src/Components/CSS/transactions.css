@@ -1,0 +1,23 @@
+.trans-item {
+    height: 15rem;
+    margin: 2%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 2%;
+}
+.txn {
+    text-align: center;
+    font-weight: 600;
+}
+
+.id {
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+.amt {
+    color: green;
+    font-size: x-large;
+    font-weight: 800;
+}
+.txnid {
+    color: #662549;
+}

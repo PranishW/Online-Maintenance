@@ -10,20 +10,19 @@ const TransactionModal = () => {
             <div className="modal fade" id="exampleModal5" tabIndex="-1" aria-labelledby="exampleModal5Label" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModal5Label">Modal title</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div className="modal-header cp-head">
+                            <h1 className="modal-title fs-5" id="exampleModal5Label">Transaction Record</h1>
+                            <i type="button" data-bs-dismiss="modal" aria-label="Close" className="fa-solid fa-xmark fa-2xl" ></i>
                         </div>
                         <div className="modal-body">
                             <div>
                                 {transactions.length === 0 && 'No Transaction Till Date'}
                             </div>
                             {transactions.map((transaction) => {
-                                return <Transaction key={transaction._id} transaction={transaction} />
+                                return <div>
+                                    <Transaction key={transaction._id} transaction={transaction} />
+                                </div>
                             })}
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
