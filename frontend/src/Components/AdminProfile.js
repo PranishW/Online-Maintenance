@@ -33,6 +33,7 @@ const AdminProfile = () => {
             setbtn(false)
             editname(false)
             editno(false)
+            editpmm(false)
             setformdata({})
             getadmin()
         }
@@ -58,6 +59,7 @@ const AdminProfile = () => {
         editname(false)
         editno(false)
         setbtn(false)
+        editpmm(false)
     }
     return (
         <div>
@@ -66,7 +68,7 @@ const AdminProfile = () => {
                     <div className="modal-content h-50">
                         <div className="modal-header cp-head">
                             <h1 className="modal-title fs-4" id="exampleModal4Label">Profile Page</h1>
-                            <i type="button" data-bs-dismiss="modal" aria-label="Close" className="fa-solid fa-xmark fa-2xl" ref={ref} ></i>
+                            <i type="button" data-bs-dismiss="modal" aria-label="Close" className="fa-solid fa-xmark fa-2xl" ref={ref} onClick={resetvalues}></i>
                         </div>
                         <div className="modal-body ">
                             <div className="profiledata">
