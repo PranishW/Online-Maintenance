@@ -110,7 +110,7 @@ router.get('/payinfo', async (req, res) => {
     let success = false;
     try {
         if (payinfo.status === "success") {
-            let { firstname, mode, amount, easepayid, addedon, txnid, productinfo } = payinfo
+            let { firstname, mode, amount, easepayid, addedon, txnid, productinfo,bank_name } = payinfo
             let flat_no = productinfo.split(" ")[0]
             let society_name = productinfo.slice(productinfo.indexOf(' ') + 1)
             let transaction = await Transaction.create({
@@ -121,7 +121,8 @@ router.get('/payinfo', async (req, res) => {
                 transaction_id: txnid,
                 society_name: society_name,
                 flat_no: flat_no,
-                amount: amount
+                amount: amount,
+                bank_name: bank_name
             })
             let flatowner = await FlatOwner.findOne({ $and: [{ society_name: society_name }, { flat_no: flat_no }] })
             flatowner.amount_due= flatowner.amount_due - amount;

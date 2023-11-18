@@ -9,7 +9,7 @@ const Response = () => {
     const alert = useContext(PopupContext)
     const navigate = useNavigate()
     const context = useContext(userContext)
-    const {getflatowner} = context
+    const { getflatowner } = context
     const { showPopup } = alert
     const fetchdata = async (e) => {
         const response = await fetch("http://localhost:4444/api/payment/payinfo", {
@@ -65,7 +65,12 @@ const Response = () => {
                             {payinfo.transaction_mode === "MW" && <td>Mobile Wallet</td>}
                             {payinfo.transaction_mode === "CC" && <td>Debit/Credit Card</td>}
                             {payinfo.transaction_mode === "NB" && <td>Net Banking</td>}
+                            {payinfo.transaction_mode === "UPI" && <td>UPI</td>}
                         </tr>
+                        {payinfo.transaction_mode === "NB" && <tr>
+                            <td>Bank Name : </td>
+                            <td>{payinfo.bank_name}</td>
+                        </tr>}
                         <tr>
                             <td>Transaction Date</td>
                             <td>{payinfo.transaction_date}</td>

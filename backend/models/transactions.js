@@ -8,6 +8,7 @@ const TransactionSchema = new mongoose.Schema({
     society_name : String,
     flat_no : String,
     amount:Number,
+    bank_name:String
 })
 const Transaction = mongoose.model('Transaction', TransactionSchema);
 module.exports = Transaction

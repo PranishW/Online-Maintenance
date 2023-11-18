@@ -34,7 +34,12 @@ const Transaction = (props) => {
                 {transaction.transaction_mode === "MW" && <span className="id">Mobile Wallet</span>}
                 {transaction.transaction_mode === "CC" && <span className="id">Debit/Credit Card</span>}
                 {transaction.transaction_mode === "NB" && <span className="id">Net Banking</span>}
+                {transaction.transaction_mode === "UPI" && <span className="id">UPI</span>}
             </div>
+            {transaction.transaction_mode==="NB" && <div className="txn">
+                <span>Bank Name : </span>
+                <span className="id">{transaction.bank_name}</span>
+            </div>}
             <div className="txn">
                 <span>Maintenance Amount Paid </span>
                 <span className="amt">Rs.{transaction.amount}</span>
