@@ -54,9 +54,8 @@ router.post("/initiate_payment", [
         }
         success = true;
         const savedForm = form();
-        util_call(savedForm).then(function (response) {
-            res.status(200).json({ success, savedForm, response });
-        });
+        const response = await util_call(savedForm);
+        res.status(200).json({ success, savedForm, response });
     }
     catch (error) {
         console.error(error.message)
@@ -64,7 +63,7 @@ router.post("/initiate_payment", [
     }
 })
 
-const util_call = (data) => {
+const util_call = async (data) => {
     let options = {
         'method': "POST",
         'url': "https://testpay.easebuzz.in/payment/initiateLink",
@@ -74,15 +73,20 @@ const util_call = (data) => {
         },
         form: data,
     };
-    return new Promise(function (resolve, reject) {
-        request(options, function (error, response) {
-            if (response) {
-                let data = JSON.parse(response.body)
-                return resolve(data);
-            } else
-                return reject(error);
-        })
-    })
+    return new Promise((resolve, reject) => {
+        request(options, (error, response) => {
+            if (error) {
+                reject(error);
+            } else {
+                try {
+                    const responseData = JSON.parse(response.body);
+                    resolve(responseData);
+                } catch (parseError) {
+                    reject(parseError);
+                }
+            }
+        });
+    });
 }
 
 router.post('/response', function (req, res) {
@@ -110,7 +114,7 @@ router.get('/payinfo', async (req, res) => {
     let success = false;
     try {
         if (payinfo.status === "success") {
-            let { firstname, mode, amount, easepayid, addedon, txnid, productinfo,bank_name } = payinfo
+            let { firstname, mode, amount, easepayid, addedon, txnid, productinfo, bank_name } = payinfo
             let flat_no = productinfo.split(" ")[0]
             let society_name = productinfo.slice(productinfo.indexOf(' ') + 1)
             let transaction = await Transaction.create({
@@ -125,7 +129,7 @@ router.get('/payinfo', async (req, res) => {
                 bank_name: bank_name
             })
             let flatowner = await FlatOwner.findOne({ $and: [{ society_name: society_name }, { flat_no: flat_no }] })
-            flatowner.amount_due= flatowner.amount_due - amount;
+            flatowner.amount_due = flatowner.amount_due - amount;
             flatowner.last_paid = addedon
             flatowner = await FlatOwner.findByIdAndUpdate(flatowner._id, { $set: flatowner }, { new: true })
             success = true;
