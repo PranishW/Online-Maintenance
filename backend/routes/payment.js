@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { body, validationResult } from 'express-validator';
 import getUser from '../middleware/getUser.js';
 import sha512 from 'js-sha512';
-import request from 'request';
+import fetch from 'node-fetch';
 import moment from 'moment-timezone';
 import Transaction from '../models/transactions.js';
 import FlatOwner from '../models/flatowner.js';
@@ -64,32 +64,24 @@ router.post("/initiate_payment", [
 })
 
 const util_call = async (data) => {
-    let options = {
-        'method': "POST",
-        'url': "https://testpay.easebuzz.in/payment/initiateLink",
-        'headers': {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': 'csrftoken=TIkUHVU97GnvNVDbFxONUfLkxYwv09yr'
-        },
-        form: data,
-    };
-    return new Promise((resolve, reject) => {
-        request(options, (error, response) => {
-            if (error) {
-                reject(error);
-            } else {
-                try {
-                    const responseData = JSON.parse(response.body);
-                    resolve(responseData);
-                } catch (parseError) {
-                    reject(parseError);
-                }
-            }
-        });
-    });
+    try {
+        const response = await fetch('https://testpay.easebuzz.in/payment/initiateLink', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cookie': 'csrftoken=TIkUHVU97GnvNVDbFxONUfLkxYwv09yr'
+            },
+            body: new URLSearchParams(data).toString()
+        })
+        const responsedata = await response.json();
+        return responsedata;
+    }
+    catch (error) {
+        throw error
+    }
 }
 
-router.post('/response', function (req, res) {
+router.post('/response', (req, res) => {
     function checkReverseHash(response) {
         var hashstring = process.env.EASEBUZZ_SALT + "|" + response.status + "|" + response.udf10 + "|" + response.udf9 + "|" + response.udf8 + "|" + response.udf7 +
             "|" + response.udf6 + "|" + response.udf5 + "|" + response.udf4 + "|" + response.udf3 + "|" + response.udf2 + "|" + response.udf1 + "|" +
