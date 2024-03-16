@@ -1,11 +1,11 @@
-const express = require('express')
+import express from 'express';
 const router = express.Router()
-const { body, validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-const getUser = require('../middleware/getUser.js');
-const FlatOwner = require('../models/flatowner.js');
+import { body, validationResult } from 'express-validator';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import getUser from '../middleware/getUser.js';
+import FlatOwner from '../models/flatowner.js';
 dotenv.config()
 // login flat owner
 router.post("/login", async (req, res) => {
@@ -128,4 +128,4 @@ router.post("/getmaintenance", async (req, res) => {
     }
 })
 
-module.exports = router
+export default router;

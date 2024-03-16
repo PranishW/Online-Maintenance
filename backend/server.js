@@ -1,8 +1,11 @@
-const connectToMongo = require("./db");
-const express = require('express');
-var cors = require('cors')
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv')
+import connectToMongo from "./db.js";
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import userRouter from './routes/users.js';
+import flatOwnerRouter from './routes/flatowners.js';
+import paymentRouter from './routes/payment.js';
 dotenv.config()
 connectToMongo();
 const app = express()
@@ -12,9 +15,9 @@ app.use(cors())
 app.use(bodyParser.json({limit:'50mb'}));
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use('/api/admin', require('./routes/users'));
-app.use('/api/user',require('./routes/flatowners'));
-app.use('/api/payment',require('./routes/payment'));
+app.use('/api/admin', userRouter);
+app.use('/api/user',flatOwnerRouter);
+app.use('/api/payment',paymentRouter);
 app.listen(port, () => {
     console.log(`Registration Form backend listening on ${BASE_URL}`)
   })

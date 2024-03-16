@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv')
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 dotenv.config()
-// "mongodb://localhost:27017/eRegistration"
 const MongoURI = process.env.MONGO_URI
 const connectToMongo = () =>{
     mongoose.connect(MongoURI)
@@ -13,4 +12,4 @@ const connectToMongo = () =>{
         console.log("Error connecting to DB")
     }
 }
-module.exports= connectToMongo;
+export default connectToMongo;

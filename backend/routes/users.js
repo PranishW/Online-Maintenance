@@ -1,13 +1,13 @@
-const express = require('express')
+import express from 'express';
 const router = express.Router()
-const Admin = require('../models/admin.js')
-const { body, validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-const getUser = require('../middleware/getUser.js');
-const FlatOwner = require('../models/flatowner.js');
-
+import Admin from '../models/admin.js';
+import { body, validationResult } from 'express-validator';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import getUser from '../middleware/getUser.js';
+import FlatOwner from '../models/flatowner.js';
+dotenv.config()
 // creating admin user 
 router.post('/postadmin', [
     body('password', 'Enter a strong password').isStrongPassword({
@@ -208,4 +208,4 @@ router.get("/getflatowners", getUser, async(req,res) =>{
     }
 })
 
-module.exports = router;
+export default router;

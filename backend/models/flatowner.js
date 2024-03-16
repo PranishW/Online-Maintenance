@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 const FlatOwnerSchema = new mongoose.Schema({
     flat_owner_name:{
         type:String,
@@ -24,4 +24,4 @@ const FlatOwnerSchema = new mongoose.Schema({
     }
 })
 const FlatOwner = mongoose.model('FlatOwner', FlatOwnerSchema);
-module.exports = FlatOwner
+export default FlatOwner;

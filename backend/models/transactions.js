@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 const TransactionSchema = new mongoose.Schema({
     flat_owner_name : String,
     transaction_mode : String,
@@ -11,4 +11,4 @@ const TransactionSchema = new mongoose.Schema({
     bank_name:String
 })
 const Transaction = mongoose.model('Transaction', TransactionSchema);
-module.exports = Transaction
+export default Transaction;

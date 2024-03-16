@@ -1,14 +1,14 @@
-const express = require('express')
+import express from 'express';
 const router = express.Router()
-const dotenv = require('dotenv');
-const { body, validationResult } = require('express-validator');
-const getUser = require('../middleware/getUser.js');
-const sha512 = require('js-sha512');
-const request = require('request');
-const moment = require('moment-timezone');
-const Transaction = require('../models/transactions.js');
-const FlatOwner = require('../models/flatowner.js');
-const Admin = require('../models/admin.js');
+import dotenv from 'dotenv';
+import { body, validationResult } from 'express-validator';
+import getUser from '../middleware/getUser.js';
+import sha512 from 'js-sha512';
+import request from 'request';
+import moment from 'moment-timezone';
+import Transaction from '../models/transactions.js';
+import FlatOwner from '../models/flatowner.js';
+import Admin from '../models/admin.js';
 dotenv.config();
 let payinfo = {}
 router.post("/initiate_payment", [
@@ -94,7 +94,7 @@ router.post('/response', function (req, res) {
         var hashstring = process.env.EASEBUZZ_SALT + "|" + response.status + "|" + response.udf10 + "|" + response.udf9 + "|" + response.udf8 + "|" + response.udf7 +
             "|" + response.udf6 + "|" + response.udf5 + "|" + response.udf4 + "|" + response.udf3 + "|" + response.udf2 + "|" + response.udf1 + "|" +
             response.email + "|" + response.firstname + "|" + response.productinfo + "|" + response.amount + "|" + response.txnid + "|" + response.key
-        hash_key = sha512.sha512(hashstring);
+        let hash_key = sha512.sha512(hashstring);
         if (hash_key == req.body.hash)
             return true;
         else
@@ -204,4 +204,4 @@ router.get("/transactions", getUser, async (req, res) => {
         res.status(500).json("Internal Server Error"); // sending to user 
     }
 })
-module.exports = router;
+export default router;
