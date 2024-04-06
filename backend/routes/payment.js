@@ -9,8 +9,10 @@ import moment from 'moment-timezone';
 import Transaction from '../models/transactions.js';
 import FlatOwner from '../models/flatowner.js';
 import Admin from '../models/admin.js';
+import { v4 as uuid } from "uuid";
 dotenv.config();
-let payinfo = {}
+let payinfo = {} // object to store recent transaction data
+// route to initiate payment
 router.post("/initiate_payment", [
     body('email', 'enter a valid email').isEmail(),
     body('phone', 'Phone no must be valid').isMobilePhone()
@@ -22,6 +24,17 @@ router.post("/initiate_payment", [
             return res.status(400).json({ success, error: errors.array()[0].msg });
         }
         const data = req.body;
+        const transactionlist = await Transaction.find()
+        // function to find whether transaction with req body transaction id already exists
+        const checktxnid = (transaction)=>{
+            return transaction.transaction_id === data.txnid
+        }
+        while(transactionlist.find(checktxnid))
+        {
+            const unique_id = uuid();
+            data.txnid = unique_id.slice(0, 10);
+        }
+        // generate payment sha512 hash
         const generateHash = () => {
             let hashstring = process.env.EASEBUZZ_KEY + "|" + data.txnid + "|" + data.amount + "|" + data.productinfo + "|" + data.name + "|" + data.email +
                 "|" + data.udf1 + "|" + data.udf2 + "|" + data.udf3 + "|" + data.udf4 + "|" + data.udf5 + "|" + data.udf6 + "|" + data.udf7 + "|" + data.udf8 + "|" + data.udf9 + "|" + data.udf10;
@@ -80,7 +93,7 @@ const util_call = async (data) => {
         throw error
     }
 }
-
+// redirect user to http://localhost:3000/response with transaction info
 router.post('/response', (req, res) => {
     function checkReverseHash(response) {
         var hashstring = process.env.EASEBUZZ_SALT + "|" + response.status + "|" + response.udf10 + "|" + response.udf9 + "|" + response.udf8 + "|" + response.udf7 +
@@ -101,7 +114,7 @@ router.post('/response', (req, res) => {
     }
     res.send('false, check the hash value ');
 });
-
+// get transaction info ,create document in database and update user transaction details
 router.get('/payinfo', async (req, res) => {
     let success = false;
     try {
@@ -109,6 +122,7 @@ router.get('/payinfo', async (req, res) => {
             let { firstname, mode, amount, easepayid, addedon, txnid, productinfo, bank_name } = payinfo
             let flat_no = productinfo.split(" ")[0]
             let society_name = productinfo.slice(productinfo.indexOf(' ') + 1)
+            // create transaction object in database
             let transaction = await Transaction.create({
                 flat_owner_name: firstname,
                 transaction_mode: mode,
@@ -121,11 +135,11 @@ router.get('/payinfo', async (req, res) => {
                 bank_name: bank_name
             })
             let flatowner = await FlatOwner.findOne({ $and: [{ society_name: society_name }, { flat_no: flat_no }] })
-            flatowner.amount_due = flatowner.amount_due - amount;
-            flatowner.last_paid = addedon
+            flatowner.amount_due = flatowner.amount_due - amount; // deduct paid amount from amount due
+            flatowner.last_paid = addedon       // update last paid date
             flatowner = await FlatOwner.findByIdAndUpdate(flatowner._id, { $set: flatowner }, { new: true })
             success = true;
-            payinfo = {}
+            payinfo = {}    // remove recent transaction details
             res.json({ success, transaction })
         }
     }
@@ -134,21 +148,25 @@ router.get('/payinfo', async (req, res) => {
         res.status(500).json("Internal Server Error");
     }
 })
-
+// function to sort transactions using transaction date
+const sortTransactions = (transactions) =>{
+    transactions.sort((a, b) => {
+        if (a.transaction_date < b.transaction_date) {
+            return 1;
+        }
+        if (a.transaction_date > b.transaction_date) {
+            return -1;
+        }
+        return 0;
+    })
+}
 // get all transactions admin
 router.get("/alltransactions", getUser, async (req, res) => {
     try {
         let admin = await Admin.findById(req.user.id)
         let transactions = await Transaction.find({ society_name: admin.society_name })
-        transactions.sort((a, b) => {
-            if (a.transaction_date < b.transaction_date) {
-                return 1;
-            }
-            if (a.transaction_date > b.transaction_date) {
-                return -1;
-            }
-            return 0;
-        })
+        // sort transactions based on transaction date
+        sortTransactions(transactions)
         res.json(transactions)
     } catch (error) {
         console.error(error.message)
@@ -160,15 +178,8 @@ router.post("/usertransactions", getUser, async (req, res) => {
     try {
         let admin = await Admin.findById(req.user.id)
         let transactions = await Transaction.find({ $and: [{ society_name: admin.society_name }, { flat_no: req.body.flat_no }] })
-        transactions.sort((a, b) => {
-            if (a.transaction_date < b.transaction_date) {
-                return 1;
-            }
-            if (a.transaction_date > b.transaction_date) {
-                return -1;
-            }
-            return 0;
-        })
+        // sort transactions based on transaction date
+        sortTransactions(transactions)
         res.json(transactions)
     } catch (error) {
         console.error(error.message)
@@ -181,15 +192,8 @@ router.get("/transactions", getUser, async (req, res) => {
     try {
         let flatowner = await FlatOwner.findById(req.user.id)
         let transactions = await Transaction.find({ $and: [{ society_name: flatowner.society_name }, { flat_no: flatowner.flat_no }] })
-        transactions.sort((a, b) => {
-            if (a.transaction_date < b.transaction_date) {
-                return 1;
-            }
-            if (a.transaction_date > b.transaction_date) {
-                return -1;
-            }
-            return 0;
-        })
+        // sort transactions based on transaction date
+        sortTransactions(transactions)
         res.json(transactions)
     } catch (error) {
         console.error(error.message)
