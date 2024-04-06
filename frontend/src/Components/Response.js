@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PopupContext } from "../App";
 import "./CSS/response.css"
 import { useNavigate } from "react-router-dom";
 import userContext from "./Login/userContext";
 const Response = () => {
-    const [payinfo, setpayinfo] = useState({})
-    const ref = useRef(null)
+    const [payinfo, setpayinfo] = useState({})  // set recent transaction data
     const alert = useContext(PopupContext)
-    const navigate = useNavigate()
-    const context = useContext(userContext)
+    const navigate = useNavigate() // admin cannot access this page
+    const context = useContext(userContext)    // global flatowner data
     const { getflatowner } = context
     const { showPopup } = alert
     const fetchdata = async (e) => {
@@ -26,13 +25,12 @@ const Response = () => {
             navigate("/")
         }
         else {
-            ref.current.click()
+            fetchdata()
             getflatowner()
         }
     }, [])
     return (
         <div className="responsepage">
-            <button type="button" className="d-none" ref={ref} onClick={fetchdata}></button>
             {payinfo.transaction_id ? <div className="successresp">
                 <i className="fa-regular fa-circle-check fa-10x paysuc"></i>
                 <table className="payreciept">
