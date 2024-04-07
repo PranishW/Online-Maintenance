@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import userContext from "./Login/userContext";
 import { PopupContext } from "../App";
 const UserProfile = () => {
     const ref = useRef(null)
-    const [loading, setloading] = useState(false)
-    const context = useContext(userContext)
+    const [loading, setloading] = useState(false)  // loader
+    const context = useContext(userContext)         // global flatowner data
     const { userData,getflatowner } = context
-    const [formdata, setformdata] = useState({})
-    const [btn, setbtn] = useState(false)
-    const [no, editno] = useState(false)
-    const [name, editname] = useState(false)
+    const [formdata, setformdata] = useState({})    // edited form data
+    const [btn, setbtn] = useState(false)           // login button disabled if no update in user data
+    const [no, editno] = useState(false)            // btn to allow user edit phone no field
+    const [name, editname] = useState(false)        // btn to allow user edit name field
     const alert = useContext(PopupContext)
     const { showPopup } = alert
     const handleClick = async (e) => {
@@ -37,9 +37,11 @@ const UserProfile = () => {
         }
         setloading(false)
     }
+    // to handle change in name field
     const handlename = (e) => {
         editname(true)
     }
+    // to handle change in phone no field
     const handleno = (e) => {
         editno(true)
     }
@@ -47,6 +49,7 @@ const UserProfile = () => {
         setformdata({ ...formdata, [e.target.name]: e.target.value })
         setbtn(true)
     }
+    // to remove changed and reset original user data
     const resetvalues = (e) => {
         editname(false)
         editno(false)

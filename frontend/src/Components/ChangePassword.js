@@ -7,10 +7,10 @@ const ChangePassword = () => {
     const host = "http://localhost:4444"
     const alert = useContext(PopupContext)
     const { showPopup } = alert
-    const [showpass, setshowpass] = useState("password")
-    const [showcpass, setshowcpass] = useState("password")
-    const ref = useRef(null)
-    const [loading,setloading] = useState(false)
+    const [showpass, setshowpass] = useState("password") // hide/show password field value
+    const [showcpass, setshowcpass] = useState("password")  // hide/show confirm password field value
+    const ref = useRef(null)       // invisible close button to close modal
+    const [loading,setloading] = useState(false)    // set loader
     const handleClick = async (e) => {
         setloading(true)
         validate()
@@ -26,7 +26,7 @@ const ChangePassword = () => {
                         'auth-token': localStorage.getItem('token')
                     },
                     body: JSON.stringify({ password: data.password })
-                });
+                });     // change admin password
                 const json = await response.json()
                 if (json.success) {
                     ref.current.click()
@@ -46,7 +46,7 @@ const ChangePassword = () => {
                         'auth-token': localStorage.getItem('token')
                     },
                     body: JSON.stringify({ password: data.password })
-                });
+                });     // change flatowner password
                 const json = await response.json()
                 if (json.success) {
                     ref.current.click()
@@ -74,6 +74,7 @@ const ChangePassword = () => {
         }
         setError(errors)
     }
+    // below 4 functions to show/hide password field values
     const txt1 = (e) => {
         setshowpass("text")
     }

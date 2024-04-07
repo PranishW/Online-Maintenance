@@ -4,9 +4,9 @@ import userContext from "./userContext";
 const AdminState = (props) => {
     const host = "http://localhost:4444"
     const logInit = { success: true, error: "Fill every field to login" }
-    const [userData, setUserData] = useState(logInit)
+    const [userData, setUserData] = useState(logInit)  // data of flatowner/admin
     const flatsInitial = []
-    const [flats, setflats] = useState(flatsInitial)
+    const [flats, setflats] = useState(flatsInitial)   // list of all flatowners
     // get flat owner data
     const getflatowner = async () => {
         const response = await fetch(`${host}/api/user/getuser`, {
@@ -18,6 +18,7 @@ const AdminState = (props) => {
         const json = await response.json()
         setUserData(json);
     }
+    // get admin data
     const getadmin = async () => {
         const response = await fetch(`${host}/api/admin/getadmin`, {
             method: 'GET',
@@ -28,6 +29,7 @@ const AdminState = (props) => {
         const json = await response.json()
         setUserData(json);
     }
+    // get all society flatowners list
     const fetchusers = async () => {
         const response = await fetch("http://localhost:4444/api/admin/getflatowners", {
             method: 'GET',

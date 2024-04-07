@@ -15,10 +15,10 @@ const Navbar = () => {
     const { showPopup } = alert
     const context = useContext(userContext);
     const [link, setlink] = useState(0);
-    const { userData, getflatowner, getadmin } = context
+    const { userData, getflatowner, getadmin } = context  // admin data,flatowner data
     const navigate = useNavigate()
     const transcontext = useContext(TransactionContext)
-    const { getalltransactions, gettransactions } = transcontext
+    const { getalltransactions, gettransactions } = transcontext    // get list of transactions
     const viewalltransactions = (e) =>{
         getalltransactions()
     }

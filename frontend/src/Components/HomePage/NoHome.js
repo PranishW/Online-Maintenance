@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
 const NoHome = () => {
-    const [bal, setbal] = useState(false)
-    const [res, setres] = useState({})
+    const [bal, setbal] = useState(false)   // show result obtained from server
+    const [res, setres] = useState({})      // get flat owner due maintenance and other details 
     const [error, setError] = useState({})
-    const [user, setUser] = useState({ society_name: "", flat_owner_name: "", flat_no: "" })
-    const [loading, setloading] = useState(false)
+    const [user, setUser] = useState({ society_name: "", flat_owner_name: "", flat_no: "" })    // set flatowner form data
+    const [loading, setloading] = useState(false) // set loader
     const handleClick = async (e) => {
         setloading(true)
         validate()

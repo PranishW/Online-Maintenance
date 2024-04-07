@@ -2,10 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import FlatItem from "./FlatItem";
 import userContext from "../Login/userContext";
 const AdminHome = () => {
-
     const context = useContext(userContext)
-    const { userData, flats, fetchusers } = context
-
+    const { userData, flats, fetchusers } = context     // admin data, list of all flats, list of all flatowners in the society
     useEffect(() => {
         if (localStorage.getItem('admin')) {
             fetchusers()

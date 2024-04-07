@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import TransactionContext from "../Transactions/TransactionContext";
 const FlatItem = (props) => {
-    const { flat } = props
+    const { flat } = props // unique housing society flat object
     const last_paid = new Date(flat.last_paid)
     const transcontext = useContext(TransactionContext)
-    const {getusertransactions} = transcontext
+    const {getusertransactions} = transcontext // all transactions performed by flatowner till date
     const handleClick = () =>{
         getusertransactions(flat.flat_no)
     }

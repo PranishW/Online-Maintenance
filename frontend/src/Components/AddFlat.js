@@ -6,11 +6,11 @@ const AddFlat = () => {
     const [error, setError] = useState({})
     const alert = useContext(PopupContext);
     const { showPopup } = alert
-    const ref = useRef(null)
-    const [loading, setloading] = useState(false)
-    const [showpass, setshowpass] = useState("password")
+    const ref = useRef(null)    // invisible modal close button
+    const [loading, setloading] = useState(false)   // set loader
+    const [showpass, setshowpass] = useState("password") // show/hide password
     const context = useContext(userContext)
-    const {fetchusers} = context
+    const {fetchusers} = context        // get list of flatowners in admin's society
     const handleClick = async (e) => {
         setloading(true)
         e.preventDefault()

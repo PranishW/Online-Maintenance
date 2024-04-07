@@ -2,21 +2,21 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import userContext from "./Login/userContext";
 import { PopupContext } from "../App";
 const AdminProfile = () => {
-    const ref = useRef(null)
-    const [loading, setloading] = useState(false)
+    const ref = useRef(null)    // invisible modal close button
+    const [loading, setloading] = useState(false)   // set loader
     const context = useContext(userContext)
     const { userData, getadmin } = context
-    const [formdata, setformdata] = useState({})
-    const [btn, setbtn] = useState(false)
-    const [no, editno] = useState(false)
-    const [name, editname] = useState(false)
-    const [pmm, editpmm] = useState(false)
+    const [formdata, setformdata] = useState({})  // form data from client side
+    const [btn, setbtn] = useState(false) // set update button
+    const [no, editno] = useState(false)    // edit phone no button
+    const [name, editname] = useState(false)    // edit name button
+    const [pmm, editpmm] = useState(false)  // edit per month maintenance amount button
     const alert = useContext(PopupContext)
     const { showPopup } = alert
     const handleClick = async (e) => {
         setloading(true)
         if(formdata.per_month_maintenance) {
-            parseInt(formdata.per_month_maintenance)
+            parseInt(formdata.per_month_maintenance)        // convert string input value into Integer
         }
         const response = await fetch("http://localhost:4444/api/admin/editadmin", {
             method: 'PATCH',
@@ -55,6 +55,7 @@ const AdminProfile = () => {
         setformdata({ ...formdata, [e.target.name]: e.target.value })
         setbtn(true)
     }
+    // reset to original admin data after clicking reset button
     const resetvalues = (e) => {
         editname(false)
         editno(false)

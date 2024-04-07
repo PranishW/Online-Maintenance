@@ -5,10 +5,10 @@ import "./CSS/payment.css";
 import { PopupContext } from "../App";
 const Payment = () => {
     const unique_id = uuid();
-    const txnid = unique_id.slice(0, 10);
-    const { state } = useLocation()
-    const navigate = useNavigate()
-    const [error, setError] = useState({})
+    const txnid = unique_id.slice(0, 10); // create unique transaction id
+    const { state } = useLocation() // data sent from home page fetched using useLocation Hook
+    const navigate = useNavigate()  // admin cannot initiate payment
+    const [error, setError] = useState({})      // set form validation errors
     const alert = useContext(PopupContext)
     const { showPopup } = alert
     const [user, setUser] = useState({
@@ -16,8 +16,8 @@ const Payment = () => {
         productinfo: `${state.flat_no} ${state.society_name}`, udf6: "", udf7: "", udf8: "", udf9: "", udf10: "",
         furl: "http://localhost:4444/api/payment/response", surl: "http://localhost:4444/api/payment/response",
         udf1: "", udf2: "", udf3: "", udf4: "", udf5: "",
-    })
-    const [loading, setloading] = useState(false)
+    })  // data sent to initiate payment
+    const [loading, setloading] = useState(false)       // set loader
     const handleClick = async () => {
         setloading(true)
         validate()
@@ -31,7 +31,7 @@ const Payment = () => {
         const json = await response.json()
         if (json.success) {
             if (json.response.status) {
-                window.location.assign(`https://testpay.easebuzz.in/pay/${json.response.data}`);
+                window.location.assign(`https://testpay.easebuzz.in/pay/${json.response.data}`);   // redirecting to EaseBuzz payment platform
             }
             else {
                 showPopup("Payment Initiation Failed ,Please Retry", "danger")

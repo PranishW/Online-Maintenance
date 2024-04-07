@@ -4,7 +4,7 @@ import Transaction from "./Transaction";
 import '../CSS/transactions.css';
 const TransactionModal = () => {
     const transcontext = useContext(TransactionContext)
-    const { transactions } = transcontext
+    const { transactions } = transcontext // passing each transaction to Transaction component
     return (
         <div>
             <div className="modal fade" id="exampleModal5" tabIndex="-1" aria-labelledby="exampleModal5Label" aria-hidden="true">

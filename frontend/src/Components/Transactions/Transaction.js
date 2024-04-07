@@ -1,7 +1,7 @@
 import React from "react";
 import '../CSS/transactions.css';
 const Transaction = (props) => {
-    const { transaction } = props
+    const { transaction } = props   // unique transaction object
     const txndate = new Date(transaction.transaction_date)
     return (
         <div className="trans-item">
