@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext,useRef, useState } from "react";
 import userContext from "./Login/userContext";
 import { PopupContext } from "../App";
 const AdminProfile = () => {

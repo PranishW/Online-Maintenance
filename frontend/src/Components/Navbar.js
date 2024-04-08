@@ -58,9 +58,9 @@ const Navbar = () => {
                     <i className="navic fa-solid fa-right-to-bracket" />Login
                 </Link>}
                 {link === 1 && <div className="dropdown">
-                    <a className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <Link className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {userData.admin_name ? userData.admin_name.substring(0, userData.admin_name.indexOf(" ")) : " "}
-                    </a>
+                    </Link>
                     <ul className="dropdown-menu">
                         <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal4">Profile</Link></li>
                         <li><Link type="button" className="dropdown-item cp" data-bs-toggle="modal" data-bs-target="#exampleModal1" >Change Password</Link></li>
@@ -72,9 +72,9 @@ const Navbar = () => {
                     </ul>
                 </div>}
                 {link === 2 && <div className="dropdown">
-                    <a className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <Link className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {userData.flat_no}
-                    </a>
+                    </Link>
 
                     <ul className="dropdown-menu">
                         <li><Link type="button" className="dropdown-item profile" data-bs-toggle="modal" data-bs-target="#exampleModal3" >Profile</Link></li>
