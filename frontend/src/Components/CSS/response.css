@@ -5,7 +5,7 @@
 }
 .failresp {
     color: red;
-    font-size: xx-large;
+    font-size: x-large;
     font-weight: 800;
     text-align: center;
     width: 100%;
@@ -15,7 +15,7 @@
     justify-content: flex-start;
 }
 .paysuc {
-    font-size: xx-large;
+    font-size: 8rem;
     font-weight: 800;
     color: green;
 }
@@ -32,4 +32,13 @@
 td{
     border: 2px solid black;
     text-align: center;
+}
+@media screen and (max-width:767px){
+    .paysuc {
+        font-size: 6rem;
+    }
+    .payreciept {
+        width: 80%;
+        font-size: small;
+    }
 }

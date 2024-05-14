@@ -75,14 +75,14 @@ const Payment = () => {
                     </div>
                     <div className="payfield">
                         <div className="field1">
-                            <label className="home-label">Email</label>
+                            <label className="pay-label">Email</label>
                             <div>
                                 <input type="email" className="payinput" placeholder="Enter email" name="email" onChange={onChange} value={user.email} ></input>
                                 <div className="error-field">{error.email}</div>
                             </div>
                         </div>
                         <div className="field1">
-                            <label className="home-label">Phone No</label>
+                            <label className="pay-label">Phone No</label>
                             <div>
                                 <input type="tel" className="payinput" placeholder="Enter phone no" name="phone" onChange={onChange} value={user.phone} ></input>
                                 <div className="error-field">{error.phone}</div>

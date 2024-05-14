@@ -69,10 +69,10 @@ const AddFlat = () => {
     return (
         <div>
             <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered w-25 h-50">
-                    <div className="modal-content h-100">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable addflatmodal">
+                    <div className="modal-content addflatportal">
                         <div className="modal-header cp-head">
-                            <h1 className="modal-title fs-4" id="exampleModal2Label">Add Flat</h1>
+                            <h1 className="modal-title fs-4 addflathead" id="exampleModal2Label">Add Flat</h1>
                             <i type="button" data-bs-dismiss="modal" aria-label="Close" className="fa-solid fa-xmark fa-2xl" ref={ref} ></i>
                         </div>
                         <div className="modal-body">

@@ -1,4 +1,5 @@
 import React from 'react'
+import './Components/CSS/loginportal.css';
 function Popup(props) {
     const capitalize = (word)=>{
         if(word==="danger"){

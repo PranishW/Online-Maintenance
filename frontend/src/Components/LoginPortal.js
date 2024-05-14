@@ -8,8 +8,8 @@ const LoginPortal = () => {
     return (
         <div className="logportal">
             <div className="modal fade " id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-                <div className="modal-dialog modal-dialog-centered w-25 h-50">
-                    <div className="modal-content h-75">
+                <div className="modal-dialog modal-dialog-centered loginmodal">
+                    <div className="modal-content loginportal">
                         <div className="modal-body">
                             <div className="logtop">
                                 <div className={`logbtn ${setActive ? "active" : ""}`} onClick={() => { ActiveLink(true) }}>

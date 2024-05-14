@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import userContext from "./Login/userContext";
 const Response = () => {
     const [payinfo, setpayinfo] = useState({})  // set recent transaction data
+    const [paydate,setpaydate] = useState(new Date());
     const alert = useContext(PopupContext)
     const navigate = useNavigate() // admin cannot access this page
     const context = useContext(userContext)    // global flatowner data
@@ -17,6 +18,7 @@ const Response = () => {
         const json = await response.json()
         if (json.success) {
             setpayinfo(json.transaction)
+            setpaydate(new Date(json.transaction.transaction_date))
             showPopup("Transaction is Successful", "success")
         }
     }
@@ -32,11 +34,11 @@ const Response = () => {
     return (
         <div className="responsepage">
             {payinfo.transaction_id ? <div className="successresp">
-                <i className="fa-regular fa-circle-check fa-10x paysuc"></i>
+                <i className="fa-regular fa-circle-check paysuc"></i>
                 <table className="payreciept">
                     <tbody>
                         <tr>
-                            <td colspan="2">Payment Platform : EaseBuzz</td>
+                            <td colSpan="2">Payment Platform : EaseBuzz</td>
                         </tr>
                         <tr>
                             <td>Transaction ID</td>
@@ -71,7 +73,7 @@ const Response = () => {
                         </tr>}
                         <tr>
                             <td>Transaction Date</td>
-                            <td>{payinfo.transaction_date}</td>
+                            <td>{paydate.getUTCDate()+"-"+(paydate.getUTCMonth()+1)+"-"+paydate.getUTCFullYear()}</td>
                         </tr>
                         <tr>
                             <td>Status</td>

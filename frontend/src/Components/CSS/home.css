@@ -74,7 +74,7 @@
 }
 .paybtn{
     margin-left: 10%;
-    height: 3.5vh;
+    height: fit-content;
     font-size: 2vh;
     font-weight: 500;
     border-radius: 5%;
@@ -154,4 +154,68 @@
     color: darkorange;
     transform: translateY(-3%);
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@media screen and (max-width: 1024px){
+    .main {
+        width: 80%;
+        margin-top: 15%;
+    }
+    .admin-main {
+        margin-top: 15%;
+        width: 80%;
+    }
+    .homeinput {
+        font-size: small;
+    }
+    .home-label {
+        font-size: small;
+    }
+    .nohomebtn {
+        font-size: x-small;
+        width: 20vw;
+    }
+    .loader {
+        border: 3px solid white;
+        border-top: 3px solid orange;
+        height: 15px;
+        width: 15px;
+    }
+    .res-body {
+        width: 100%;
+    }
+    .res-info {
+        font-size: small;
+    }
+    .head {
+        font-size: x-large;
+    }
+    .head2 {
+        font-size: medium;
+    }
+    .paybtn {
+        width: 20%;
+        font-size: xx-small;
+        height: fit-content;
+    }
+    .ghead {
+        font-size: medium;
+    }
+    .rhead {
+        font-size: medium;
+    }
+}
+@media screen and (max-width: 480px){
+    .usermain {
+        font-size: 75%;
+    }
+    .flatitemflatno {
+        font-size: medium;
+    }
+    .flatitemhead {
+        font-size: small;
+    }
+    .flatitem {
+        font-size: x-small;
+        width: 100%;
+    }
 }

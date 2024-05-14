@@ -52,7 +52,7 @@ const UserLogin = () => {
     }
     return (
         <div className="loginbody">
-            <i className="user-ico fa-regular fa-circle-user fa-4x"></i>
+            <i className="user-ico fa-regular fa-circle-user "></i>
             <div className="loginform">
                 <div className="login-field">
                     <label className="society-label">SOCIETY/APARTMENT NAME</label>

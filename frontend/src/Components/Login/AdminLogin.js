@@ -58,7 +58,7 @@ const AdminLogin = () => {
     }
     return (
         <div className="loginbody">
-            <i className="user-ico fa-solid fa-lock fa-4x"></i>
+            <i className="user-ico fa-solid fa-lock "></i>
             <div className="loginform">
                 <div className="login-field">
                     <label className="society-label">SOCIETY/APARTMENT NAME</label>

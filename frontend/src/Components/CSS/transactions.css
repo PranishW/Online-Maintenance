@@ -24,3 +24,12 @@
 .txnid {
     color: #662549;
 }
+@media screen and (max-width:480px) {
+    .trans-item {
+        height: 15rem;
+        font-size: small;
+    }
+    .id {
+        font-size: small;
+    }
+}

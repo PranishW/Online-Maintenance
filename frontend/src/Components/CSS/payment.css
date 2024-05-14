@@ -3,22 +3,27 @@
     border: 0;
     border-bottom: 1px solid #662549;
 }
-.payinput:hover{
+
+.payinput:hover {
     border-bottom: 2px solid #662549;
     font-weight: 500;
 }
-.payinput:focus-visible{
+
+.payinput:focus-visible {
     outline: none;
     border-bottom: 2px solid #662549;
     font-weight: 500;
 }
+
 .payfield {
     display: flex;
     justify-content: space-evenly;
 }
+
 .field1 {
     width: 40%;
 }
+
 .pay-form {
     height: 40%;
     display: flex;
@@ -28,25 +33,30 @@
     border-top: 3px solid #662549;
     border-bottom: 3px solid #662549;
 }
+
 .userpay {
     display: flex;
     justify-content: space-evenly;
     font-weight: 500;
 }
+
 .payamt {
     font-size: larger;
     font-weight: 600;
     text-align: center;
 }
+
 .payspan {
     font-size: xx-large;
     font-weight: 600;
     color: green;
 }
+
 .paysubmit {
     display: flex;
     justify-content: center;
 }
+
 .payformbtn {
     text-decoration: none;
     font-size: larger;
@@ -58,8 +68,37 @@
     width: 5vw;
     border-radius: 20px;
 }
+.pay-label {
+    font-weight: 600;
+}
 .payformbtn:hover {
     color: rgb(219, 214, 214);
     transform: translateY(-3%);
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@media screen and (max-width:480px) {
+    .pay-form {
+        font-size: x-small;
+        height: 33%;
+    }
+    .payspan {
+        font-size: medium;
+    }
+    .payamt {
+        font-size: x-small;
+    }
+    .payformbtn {
+        font-size: x-small;
+        width: 10vw;
+    }
+}
+@media screen and (max-width: 1024px) and (min-width: 480px) {
+    .payformbtn {
+        width: 8vw;
+        font-size: large;
+    }
+    .pay-form {
+        height: 50%;
+    }
 }

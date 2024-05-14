@@ -49,13 +49,13 @@ const Navbar = () => {
     return (
         <div className="navbar">
             <div className="logo">
-                <i className="navlogo fa-solid fa-screwdriver-wrench fa-2xl" ></i>
+                <i className="navlogo fa-solid fa-screwdriver-wrench" ></i>
                 <h1 className="nav-head">Monthly Maintenance Portal</h1>
             </div>
             <div className="navbuttons">
-                <Link className="nav-btn" to="/"><i className="navic fa-solid fa-house" />Home</Link>
+                <Link className="nav-btn" to="/"><i className="navic fa-solid fa-house" /><span className="icon-name">Home</span></Link>
                 {link === 0 && <Link type="button" className="nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i className="navic fa-solid fa-right-to-bracket" />Login
+                    <i className="navic fa-solid fa-right-to-bracket" /><span className="icon-name">Login</span>
                 </Link>}
                 {link === 1 && <div className="dropdown">
                     <Link className="dropdown-toggle nav-dpd" role="button" data-bs-toggle="dropdown" aria-expanded="false">

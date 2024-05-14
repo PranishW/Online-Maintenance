@@ -39,6 +39,7 @@
     width: 100%;
     text-align: center;
     height: 10%;
+    font-size: 4rem;
 }
 
 .loginbody {
@@ -138,4 +139,83 @@
 .profbtns {
     display: flex;
     justify-content: space-around;
+}
+.loginmodal {
+    height: 50%;
+    width: 25%;
+}
+.loginportal {
+    height: 75%;
+}
+.addflatmodal {
+    height: 50%;
+    width: 25%;
+}
+.addflatportal {
+    height: 100%;
+}
+@media screen and (max-width: 767px){
+    .error-field {
+        font-size: x-small;
+    }
+    .log-link {
+        font-size: medium;
+    }
+    .loginmodal {
+        width: 75%;
+        margin: auto;
+    }
+    .addflatmodal {
+        width: 80%;
+        margin: auto;
+    }
+    .addflatportal {
+        height: 75%;
+    }
+    .society-label {
+        font-size: small;
+    }
+    .loginput {
+        font-size: small;
+    }
+    .loginportal {
+        height: 60%;
+    }
+    .user-ico {
+        font-size: 3rem;
+    }
+    .loginbody {
+        height: 50vh;
+    }
+    .addflatportal {
+        height: 63vh;
+    }
+    .addflathead {
+        font-size: medium !important;
+    }
+    .alert {
+        font-size: small;
+    }
+}
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+    .error-field {
+        font-size: x-small;
+    }
+    .log-link {
+        font-size: medium;
+    }
+    .loginmodal {
+        width: 33%;
+        margin: auto;
+    }
+    .addflatmodal {
+        width: 50%;
+        margin: auto;
+    }
+    .addflatportal {
+        height: 63vh;
+    }
+    .alert {
+        font-size: small;
+    }
 }

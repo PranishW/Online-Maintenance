@@ -52,3 +52,58 @@
 .cpass{
     margin-top: 3%;
 }
+.profilemodal {
+    height: 50%;
+    width: 25%;
+}
+.profileportal {
+    height: 50%;
+}
+.cpmodal {
+    height: 25%;
+}
+@media screen and (max-width: 767px){
+    .profilemodal {
+        width: 75%;
+        margin: auto;
+    }
+    .profileportal {
+        height: 50%;
+    }
+    .profdis {
+        font-size: small;
+    }
+    .cp-head {
+        font-size: x-small;
+        height: 2vh;
+    }
+    .pass-res {
+        font-size: x-small;
+        margin-left: 4%;
+    }
+    .cp-save {
+        width: 36vw;
+        height: 4.5vh;
+    }
+    .cpmodal {
+        width: 90%;
+        margin: auto;
+    }
+    .cpass {
+        margin-top: 5%;
+    }
+}
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+    .profilemodal {
+        width: 50%;
+        margin: auto;
+    }
+    .cp-save {
+        width: 16vw;
+        height: 4.5vh;
+    }
+    .cpmodal {
+        width: 80%;
+        margin: auto;
+    }
+}

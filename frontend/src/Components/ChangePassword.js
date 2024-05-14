@@ -90,7 +90,7 @@ const ChangePassword = () => {
     return (
         <div>
             <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered h-25">
+                <div className="modal-dialog modal-dialog-centered cpmodal">
                     <div className="modal-content cp-main">
                         <div className="modal-header cp-head">
                             <h1 className="modal-title fs-4" id="exampleModal1Label">Change Password</h1>
@@ -99,9 +99,9 @@ const ChangePassword = () => {
                         <div className="modal-body cp-body">
                             <div>
                                 <p className="pass-res">New Password must contain atleast 8 characters</p>
-                                <p className="pass-res">New Password must contain atleast one Uppercase Letter (A-Z)</p>
-                                <p className="pass-res">New Password must contain atleast one digit (0-9)</p>
-                                <p className="pass-res">New Password must contain atleast one symbol (@#$%&)</p>
+                                <p className="pass-res">must contain atleast one Uppercase Letter (A-Z)</p>
+                                <p className="pass-res">must contain atleast one digit (0-9)</p>
+                                <p className="pass-res">must contain atleast one symbol (@#$%&)</p>
                             </div>
                             <div className="pass">
                                 <label className="society-label">New Password</label>
