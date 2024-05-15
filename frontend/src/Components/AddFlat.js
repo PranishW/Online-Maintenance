@@ -15,7 +15,7 @@ const AddFlat = () => {
         setloading(true)
         e.preventDefault()
         validate()
-        const response = await fetch('http://localhost:4444/api/admin/addflatowner', {
+        const response = await fetch('https://online-maintenance.onrender.com/api/admin/addflatowner', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

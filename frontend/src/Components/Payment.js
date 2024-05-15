@@ -14,14 +14,14 @@ const Payment = () => {
     const [user, setUser] = useState({
         txnid: txnid, amount: `${state.amount_due}`, email: "", phone: "", name: state.flat_owner_name,
         productinfo: `${state.flat_no} ${state.society_name}`, udf6: "", udf7: "", udf8: "", udf9: "", udf10: "",
-        furl: "http://localhost:4444/api/payment/response", surl: "http://localhost:4444/api/payment/response",
+        furl: "https://online-maintenance.onrender.com/api/payment/response", surl: "https://online-maintenance.onrender.com/api/payment/response",
         udf1: "", udf2: "", udf3: "", udf4: "", udf5: "",
     })  // data sent to initiate payment
     const [loading, setloading] = useState(false)       // set loader
     const handleClick = async () => {
         setloading(true)
         validate()
-        const response = await fetch('http://localhost:4444/api/payment/initiate_payment', {
+        const response = await fetch('https://online-maintenance.onrender.com/api/payment/initiate_payment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

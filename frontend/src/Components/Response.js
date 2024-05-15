@@ -12,7 +12,7 @@ const Response = () => {
     const { getflatowner } = context
     const { showPopup } = alert
     const fetchdata = async (e) => {
-        const response = await fetch("http://localhost:4444/api/payment/payinfo", {
+        const response = await fetch("https://online-maintenance.onrender.com/api/payment/payinfo", {
             method: 'GET',
         });
         const json = await response.json()

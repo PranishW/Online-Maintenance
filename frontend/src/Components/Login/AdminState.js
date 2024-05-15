@@ -2,7 +2,7 @@ import { useState } from "react";
 import userContext from "./userContext";
 
 const AdminState = (props) => {
-    const host = "http://localhost:4444"
+    const host = "https://online-maintenance.onrender.com"
     const logInit = { success: true, error: "Fill every field to login" }
     const [userData, setUserData] = useState(logInit)  // data of flatowner/admin
     const flatsInitial = []

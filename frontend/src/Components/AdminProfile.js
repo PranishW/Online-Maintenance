@@ -18,7 +18,7 @@ const AdminProfile = () => {
         if(formdata.per_month_maintenance) {
             parseInt(formdata.per_month_maintenance)        // convert string input value into Integer
         }
-        const response = await fetch("http://localhost:4444/api/admin/editadmin", {
+        const response = await fetch("https://online-maintenance.onrender.com/api/admin/editadmin", {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

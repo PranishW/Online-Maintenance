@@ -14,7 +14,7 @@ const UserProfile = () => {
     const { showPopup } = alert
     const handleClick = async (e) => {
         setloading(true)
-        const response = await fetch("http://localhost:4444/api/user/editdata", {
+        const response = await fetch("https://online-maintenance.onrender.com/api/user/editdata", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

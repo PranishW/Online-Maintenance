@@ -2,7 +2,7 @@ import { useState } from "react";
 import TransactionContext from "./TransactionContext";
 
 const TransactionState = (props) =>{
-    const host = "http://localhost:4444"   
+    const host = "https://online-maintenance.onrender.com"   
     const TransactionInit = []
     const [transactions, setTransactions] = useState(TransactionInit)       // set list of transactions
     // admin get all transactions by society flatowners

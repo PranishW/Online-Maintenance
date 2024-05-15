@@ -9,7 +9,7 @@ const NoHome = () => {
     const handleClick = async (e) => {
         setloading(true)
         validate()
-        const response = await fetch('http://localhost:4444/api/user/getmaintenance', {
+        const response = await fetch('https://online-maintenance.onrender.com/api/user/getmaintenance', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

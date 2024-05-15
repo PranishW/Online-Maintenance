@@ -4,7 +4,7 @@ import { PopupContext } from "../App";
 const ChangePassword = () => {
     const [data, setdata] = useState({ password: "", cpassword: "" })
     const [error, setError] = useState({ password: "Enter New Password", cpassword: "Confirm New Password" })
-    const host = "http://localhost:4444"
+    const host = "https://online-maintenance.onrender.com"
     const alert = useContext(PopupContext)
     const { showPopup } = alert
     const [showpass, setshowpass] = useState("password") // hide/show password field value
