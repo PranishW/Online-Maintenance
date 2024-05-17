@@ -110,7 +110,7 @@ router.post('/response', (req, res) => {
         const date = new Date();
         const ISTDate = moment(date).tz('Asia/Kolkata').format();
         payinfo.addedon = ISTDate
-        res.redirect("https://ommp.onrender.com//response")
+        res.redirect("https://ommp.onrender.com/response")
     }
     res.send('false, check the hash value ');
 });
