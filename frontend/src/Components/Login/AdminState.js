@@ -31,7 +31,7 @@ const AdminState = (props) => {
     }
     // get all society flatowners list
     const fetchusers = async () => {
-        const response = await fetch("http://localhost:4444/api/admin/getflatowners", {
+        const response = await fetch(`${host}/api/admin/getflatowners`, {
             method: 'GET',
             headers: {
                 'auth-token': localStorage.getItem('token')
