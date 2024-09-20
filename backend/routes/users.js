@@ -208,4 +208,24 @@ router.get("/getflatowners", getUser, async(req,res) =>{
     }
 })
 
+// get all society names
+router.get('/societies',async(req,res)=>{
+    try {
+        const societies = await Admin.find({},'society_name');
+        societies.sort((a,b)=>{
+            if(a.society_name<b.society_name) {
+                return -1;
+            }
+            if(a.society_name>b.society_name) {
+                return 1;
+            }
+            return 0;
+        })
+        res.json(societies)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error"); // sending to user 
+    }
+})
+
 export default router;

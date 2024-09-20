@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import {Link} from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"
 const NoHome = () => {
     const [bal, setbal] = useState(false)   // show result obtained from server
     const [res, setres] = useState({})      // get flat owner due maintenance and other details 
     const [error, setError] = useState({})
     const [user, setUser] = useState({ society_name: "", flat_owner_name: "", flat_no: "" })    // set flatowner form data
     const [loading, setloading] = useState(false) // set loader
+    const [soc, setsoc] = useState([]); // set societies
     const handleClick = async (e) => {
         setloading(true)
         validate()
@@ -52,6 +53,16 @@ const NoHome = () => {
         }
         setError(errors)
     }
+    const societies = async () => {
+        const response = await fetch('http://localhost:4444/api/admin/societies', {
+            method: 'GET'
+        })
+        const json = await response.json()
+        setsoc(json)
+    }
+    useEffect(() => {
+        societies()
+    }, [])
     return (
         <div className="main">
             <h1 className="head">Home Page</h1>
@@ -60,12 +71,19 @@ const NoHome = () => {
                 <div className="homeform">
                     <label className="home-label">SOCIETY/APARTMENT NAME</label>
                     <div>
-                        <input type="text" className="homeinput" placeholder="Enter society/apartment name" name="society_name" onChange={onChange} value={user.society_name}></input>
+                    <select name="society_name" className="homeinput" onChange={onChange} value={user.society_name}>
+                            <option value="" disabled selected>Select society/apartment name</option>
+                            {
+                                soc.map((society) =>{
+                                    return <option key={society._id} value={society.society_name}>{society.society_name}</option>
+                                })
+                            }
+                        </select>
                         <div className="error-field">{error.society_name}</div>
                     </div>
                 </div>
                 <div className="homeform">
-                    <label className="home-label">FLAT OWNER NAME :- (Dr/Mr/Mrs. Firstname Lastname)</label>
+                    <label className="home-label">FLAT OWNER NAME :-</label>
                     <div>
                         <input type="text" className="homeinput" placeholder="Enter name" name="flat_owner_name" onChange={onChange} value={user.flat_owner_name}></input>
                         <div className="error-field">{error.flat_owner_name}</div>
