@@ -54,7 +54,7 @@ const NoHome = () => {
         setError(errors)
     }
     const societies = async () => {
-        const response = await fetch('http://localhost:4444/api/admin/societies', {
+        const response = await fetch('https://online-maintenance.onrender.com/api/admin/societies', {
             method: 'GET'
         })
         const json = await response.json()
