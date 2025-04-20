@@ -128,4 +128,27 @@ router.post("/getmaintenance", async (req, res) => {
     }
 })
 
+// get all flats in a society
+router.get('/getflats/:society',async(req,res)=>{
+    try {
+        const society = req.params.society
+        const flats = await FlatOwner.find({society_name : society},'flat_no')
+        flats.sort((a,b)=>{
+            if(a.flat_no<b.flat_no) {
+                return -1;
+            }
+            if(a.flat_no>b.flat_no) {
+                return 1;
+            }
+            return 0;
+        })
+        res.json(flats)
+        
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json("Internal Server Error"); // sending to user 
+    }
+})
+
+
 export default router;
