@@ -7,6 +7,7 @@ const NoHome = () => {
     const [user, setUser] = useState({ society_name: "", flat_owner_name: "", flat_no: "" })    // set flatowner form data
     const [loading, setloading] = useState(false) // set loader
     const [soc, setsoc] = useState([]); // set societies
+    const [flats, setflats] = useState([]); // set flats
     const handleClick = async (e) => {
         setloading(true)
         validate()
@@ -36,6 +37,7 @@ const NoHome = () => {
         setbal(false)
         setError({})
         setUser({ society_name: "", flat_owner_name: "", flat_no: "" })
+        setflats([])
     }
     const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -48,9 +50,6 @@ const NoHome = () => {
         if (!user.flat_no) {
             errors.flat_no = "Flat no is required!!"
         }
-        if (!user.flat_owner_name) {
-            errors.flat_owner_name = "Flat Owner/Tenant Name is required!!"
-        }
         setError(errors)
     }
     const societies = async () => {
@@ -59,6 +58,14 @@ const NoHome = () => {
         })
         const json = await response.json()
         setsoc(json)
+    }
+    const getflats = async() =>{
+        console.log(user.society_name)
+        const response = await fetch(`https://online-maintenance.onrender.com/api/user/getflats/${user.society_name}`,{
+            method: 'GET'
+        })
+        const json = await response.json()
+        setflats(json)
     }
     useEffect(() => {
         societies()
@@ -71,10 +78,10 @@ const NoHome = () => {
                 <div className="homeform">
                     <label className="home-label">SOCIETY/APARTMENT NAME</label>
                     <div>
-                    <select name="society_name" className="homeinput" onChange={onChange} value={user.society_name}>
+                        <select name="society_name" className="homeinput" onChange={onChange} value={user.society_name}>
                             <option value="" disabled selected>Select society/apartment name</option>
                             {
-                                soc.map((society) =>{
+                                soc.map((society) => {
                                     return <option key={society._id} value={society.society_name}>{society.society_name}</option>
                                 })
                             }
@@ -83,16 +90,23 @@ const NoHome = () => {
                     </div>
                 </div>
                 <div className="homeform">
-                    <label className="home-label">FLAT OWNER NAME :-</label>
+                    <label className="home-label">FLAT OWNER NAME</label>
                     <div>
                         <input type="text" className="homeinput" placeholder="Enter name" name="flat_owner_name" onChange={onChange} value={user.flat_owner_name}></input>
                         <div className="error-field">{error.flat_owner_name}</div>
                     </div>
                 </div>
                 <div className="homeform">
-                    <label className="home-label">FLAT NO :- (eg: A-401)</label>
+                    <label className="home-label">FLAT NO</label>
                     <div>
-                        <input type="text" className="homeinput" placeholder="Enter flat no" name="flat_no" onChange={onChange} value={user.flat_no}></input>
+                        <select name="flat_no" className="homeinput" onChange={onChange} value={user.flat_no} onClick={getflats}>
+                            <option value="" disabled selected>Select Flat No</option>
+                            {
+                                flats.map((flat) => {
+                                    return <option key={flat._id} value={flat.flat_no}>{flat.flat_no}</option>
+                                })
+                            }
+                        </select>
                         <div className="error-field">{error.flat_no}</div>
                     </div>
                 </div>
