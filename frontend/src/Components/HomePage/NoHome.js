@@ -67,6 +67,9 @@ const NoHome = () => {
         const json = await response.json()
         setflats(json)
     }
+    useEffect(()=>{
+        getflats();
+    },[user.society_name])
     useEffect(() => {
         societies()
     }, [])
@@ -99,7 +102,7 @@ const NoHome = () => {
                 <div className="homeform">
                     <label className="home-label">FLAT NO</label>
                     <div>
-                        <select name="flat_no" className="homeinput" onChange={onChange} value={user.flat_no} onClick={getflats}>
+                        <select name="flat_no" className="homeinput" onChange={onChange} value={user.flat_no}>
                             <option value="" disabled selected>Select Flat No</option>
                             {
                                 flats.map((flat) => {
