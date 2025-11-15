@@ -59,16 +59,16 @@ const NoHome = () => {
         const json = await response.json()
         setsoc(json)
     }
-    const getflats = async() =>{
-        console.log(user.society_name)
-        const response = await fetch(`https://online-maintenance.onrender.com/api/user/getflats/${user.society_name}`,{
+    const getflats = async(society_name) =>{
+        console.log(society_name)
+        const response = await fetch(`https://online-maintenance.onrender.com/api/user/getflats/${society_name}`,{
             method: 'GET'
         })
         const json = await response.json()
         setflats(json)
     }
     useEffect(()=>{
-        getflats();
+        getflats(user.society_name);
     },[user.society_name])
     useEffect(() => {
         societies()
