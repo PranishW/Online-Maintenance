@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom"
+import HomeContext from "./HomeContext";
 const NoHome = () => {
     const [bal, setbal] = useState(false)   // show result obtained from server
     const [res, setres] = useState({})      // get flat owner due maintenance and other details 
@@ -8,28 +9,34 @@ const NoHome = () => {
     const [loading, setloading] = useState(false) // set loader
     const [soc, setsoc] = useState([]); // set societies
     const [flats, setflats] = useState([]); // set flats
+    const context = useContext(HomeContext);
+    const {societies,flatsList} = context;
     const handleClick = async (e) => {
         setloading(true)
-        validate()
-        const response = await fetch('https://online-maintenance.onrender.com/api/user/getmaintenance', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        });
-        const json = await response.json()
-        if (json.success) {
-            setbal(true)
-            const flatowner = json.flatowner
-            setres({
-                success: "Result Found", society_name: flatowner.society_name, flat_owner_name: flatowner.flat_owner_name,
-                flat_no: flatowner.flat_no, amount_due: flatowner.amount_due, last_paid: new Date(flatowner.last_paid)
-            })
-        }
-        if (json.error) {
-            setbal(true)
-            setres({ error: "No results Found" })
+        let errors = validate();
+        console.log(errors)
+        if(Object.keys(errors).length===0)
+        {
+            const response = await fetch('https://online-maintenance.onrender.com/api/user/getmaintenance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            });
+            const json = await response.json()
+            if (json.success) {
+                setbal(true)
+                const flatowner = json.flatowner
+                setres({
+                    success: "Result Found", society_name: flatowner.society_name, flat_owner_name: flatowner.flat_owner_name,
+                    flat_no: flatowner.flat_no, amount_due: flatowner.amount_due, last_paid: new Date(flatowner.last_paid)
+                })
+            }
+            if (json.error) {
+                setbal(true)
+                setres({ error: "No results Found" })
+            }
         }
         setloading(false)
     }
@@ -51,27 +58,27 @@ const NoHome = () => {
             errors.flat_no = "Flat no is required!!"
         }
         setError(errors)
+        return errors;
     }
-    const societies = async () => {
-        const response = await fetch('https://online-maintenance.onrender.com/api/admin/societies', {
-            method: 'GET'
-        })
-        const json = await response.json()
-        setsoc(json)
+    const getsocieties = async () =>{
+        const json = await societies();
+        console.log("Societies "+json);
+        setsoc(json);
     }
-    const getflats = async(society_name) =>{
-        console.log(society_name)
-        const response = await fetch(`https://online-maintenance.onrender.com/api/user/getflats/${society_name}`,{
-            method: 'GET'
-        })
-        const json = await response.json()
-        setflats(json)
+    const getflats = async (society) =>{
+        const json = await flatsList(society);
+        setflats(json);
     }
     useEffect(()=>{
-        getflats(user.society_name);
+        if(user.society_name!=='')
+        {
+            user.flat_no='';
+            setbal(false)
+            getflats(user.society_name);
+        }
     },[user.society_name])
     useEffect(() => {
-        societies()
+        getsocieties();
     }, [])
     return (
         <div className="main">

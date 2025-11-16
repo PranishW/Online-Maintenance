@@ -12,6 +12,7 @@ import Popup from "./Popup";
 import Payment from "./Components/Payment";
 import Response from "./Components/Response";
 import TransactionState from "./Components/Transactions/TransactionState";
+import HomeState from "./Components/HomePage/HomeState";
 export const PopupContext = createContext();
 function App() {
   const [popup, setPopup] = useState(null);
@@ -30,14 +31,16 @@ function App() {
         <TransactionState>
           <BrowserRouter>
             <PopupContext.Provider value={{ showPopup }} >
-              <Navbar />
-              <Popup popup={popup} />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/payment" element={<Payment />} />
-                <Route path="/response" element={<Response />} />
-              </Routes>
-              <Footer />
+              <HomeState>
+                <Navbar />
+                <Popup popup={popup} />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/payment" element={<Payment />} />
+                  <Route path="/response" element={<Response />} />
+                </Routes>
+                <Footer />
+              </HomeState>
             </PopupContext.Provider>
           </BrowserRouter>
         </TransactionState>
