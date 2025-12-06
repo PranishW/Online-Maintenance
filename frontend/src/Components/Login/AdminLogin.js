@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { PopupContext } from "../../App";
+import HomeContext from "../HomePage/HomeContext";
 const AdminLogin = () => {
     const [admin, setAdmin] = useState({ society_name: "", password: "" })
     const [error, setError] = useState({})
@@ -7,6 +8,8 @@ const AdminLogin = () => {
     const { showPopup } = alert
     const ref = useRef(null)
     const [loading,setloading] = useState(false)
+    const context = useContext(HomeContext);
+    const {soclist} = context;
     const handleClick = async (e) => {
         setloading(true)
         e.preventDefault()
@@ -62,9 +65,14 @@ const AdminLogin = () => {
             <div className="loginform">
                 <div className="login-field">
                     <label className="society-label">SOCIETY/APARTMENT NAME</label>
-                    <div>
-                        <input type="text" className="loginput" name="society_name" placeholder="Society Name" onChange={onChange} value={admin.society_name}/>
-                    </div>
+                    <select name="society_name" className="loginput" onChange={onChange} value={admin.society_name}>
+                        <option value="" disabled selected>Select society/apartment name</option>
+                        {
+                            soclist.map((society) => {
+                                return <option key={society._id} value={society.society_name}>{society.society_name}</option>
+                            })
+                        }
+                    </select>
                     <div className="error-field">{error.society_name}</div>
                 </div>
                 <div className="login-field">

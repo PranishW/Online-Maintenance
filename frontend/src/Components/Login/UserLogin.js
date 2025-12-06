@@ -1,6 +1,7 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { PopupContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import HomeContext from "../HomePage/HomeContext";
 const UserLogin = () => {
     const [user, setUser] = useState({ society_name: "", flat_no: "", password: "" })
     const [error, setError] = useState({})
@@ -9,6 +10,9 @@ const UserLogin = () => {
     const ref = useRef(null)
     const [loading,setloading] = useState(false)
     const navigate = useNavigate();
+    const context = useContext(HomeContext);
+    const {getflatsList,soclist} = context;
+    const [flats,setflats] = useState([]);
     const handleClick = async (e) => {
         setloading(true)
         e.preventDefault()
@@ -50,22 +54,43 @@ const UserLogin = () => {
         }
         setError(errors)
     }
+        const getflats = async (society) =>{
+            const json = await getflatsList(society);
+            setflats(json);
+        }
+        useEffect(()=>{
+            if(user.society_name!=='')
+            {
+                user.flat_no='';
+                getflats(user.society_name);
+            }
+        },[user.society_name])
     return (
         <div className="loginbody">
             <i className="user-ico fa-regular fa-circle-user "></i>
             <div className="loginform">
                 <div className="login-field">
                     <label className="society-label">SOCIETY/APARTMENT NAME</label>
-                    <div>
-                        <input type="text" className="loginput" name="society_name" placeholder="Society Name" onChange={onChange} value={user.society_name}/>
-                    </div>
+                    <select name="society_name" className="loginput" onChange={onChange} value={user.society_name}>
+                        <option value="" disabled selected>Select society/apartment name</option>
+                        {
+                            soclist.map((society) => {
+                                return <option key={society._id} value={society.society_name}>{society.society_name}</option>
+                            })
+                        }
+                    </select>
                     <div className="error-field">{error.society_name}</div>
                 </div>
                 <div className="login-field">
                     <label className="society-label">FLAT NO</label>
-                    <div>
-                        <input type="text" className="loginput" name="flat_no" placeholder="Flat No" onChange={onChange} value={user.flat_no}/>
-                    </div>
+                    <select name="flat_no" className="loginput" onChange={onChange} value={user.flat_no}>
+                        <option value="" disabled selected>Select Flat No</option>
+                        {
+                            flats.map((flat) => {
+                                return <option key={flat._id} value={flat.flat_no}>{flat.flat_no}</option>
+                            })
+                        }
+                    </select>
                     <div className="error-field">{error.flat_no}</div>
                 </div>
                 <div className="login-field">
