@@ -7,10 +7,9 @@ const NoHome = () => {
     const [error, setError] = useState({})
     const [user, setUser] = useState({ society_name: "", flat_owner_name: "", flat_no: "" })    // set flatowner form data
     const [loading, setloading] = useState(false) // set loader
-    const [soc, setsoc] = useState([]); // set societies
     const [flats, setflats] = useState([]); // set flats
     const context = useContext(HomeContext);
-    const {societies,flatsList} = context;
+    const {getsocieties,getflatsList,soclist} = context;
     const handleClick = async (e) => {
         setloading(true)
         let errors = validate();
@@ -60,13 +59,8 @@ const NoHome = () => {
         setError(errors)
         return errors;
     }
-    const getsocieties = async () =>{
-        const json = await societies();
-        console.log("Societies "+json);
-        setsoc(json);
-    }
     const getflats = async (society) =>{
-        const json = await flatsList(society);
+        const json = await getflatsList(society);
         setflats(json);
     }
     useEffect(()=>{
@@ -91,7 +85,7 @@ const NoHome = () => {
                         <select name="society_name" className="homeinput" onChange={onChange} value={user.society_name}>
                             <option value="" disabled selected>Select society/apartment name</option>
                             {
-                                soc.map((society) => {
+                                soclist.map((society) => {
                                     return <option key={society._id} value={society.society_name}>{society.society_name}</option>
                                 })
                             }
